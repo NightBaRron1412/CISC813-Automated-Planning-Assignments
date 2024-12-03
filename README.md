@@ -46,7 +46,7 @@ To run any planning problem:
 1. Clone this repository:
    ```bash
    git clone https://github.com/NightBaRron1412/CISC813-Automated-Planning-Assignments.git
-   cd CISC813-Automated-Planning
+   cd CISC813-Automated-Planning-Assignments
    ```
 2. Navigate to the specific assignment folder:
    ```bash
