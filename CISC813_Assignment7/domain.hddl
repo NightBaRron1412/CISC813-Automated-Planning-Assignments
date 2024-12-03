@@ -1,0 +1,434 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Domain: Warehouse Logistics
+; Description: Models logistics in a warehouse, focusing on package delivery
+;              and maintenance of robots used to transport packages.
+; Author: Amir Shetaia
+; Class: CISC813 - Automated Planning
+; Email: A.Shetaia@queensu.ca
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (domain warehouse-logistics)
+    (:requirements :strips :typing :hierarchy)
+
+    ;;; Types
+    ;; - location: Represents various physical areas within the warehouse.
+    ;; - package: Represents items that need to be transported.
+    ;; - robot: Represents robots used to move packages around the warehouse.
+    (:types
+        location package robot - object
+    )
+
+    ;;; Constants
+    ;; - Defines specific locations within the warehouse, such as storage-area, loading-dock, etc.
+    (:constants
+        storage-area loading-dock section-a section-b section-c section-d section-e obstacle-area maintenance-bay - location
+    )
+
+    ;;; Predicates
+    ;; - connected: Indicates if two locations are directly connected.
+    ;; - at: Tracks the current location of an entity (robot or package).
+    ;; - has: Indicates if a robot is carrying a specific package.
+    ;; - delivered: Indicates if a package has been delivered to its destination.
+    ;; - assigned: Represents if a package is assigned to a particular robot.
+    ;; - destination: Specifies the target location for a package.
+    ;; - available: Indicates if a robot is free to take on a new task.
+    ;; - heavy, fragile, flammable, perishable, urgent: Represents specific properties of packages that may impact handling requirements.
+    ;; - can-handle-heavy, can-handle-fragile, flame-resistant: Represents the capabilities of robots to handle specific package properties.
+    ;; - blocked: Indicates if a path between two locations is blocked.
+    ;; - needs-maintenance, maintenance-completed: Tracks the maintenance status of a robot.
+    (:predicates
+        (connected ?l1 ?l2 - location) ; Locations are connected
+        (at ?e - object ?l - location) ; An object is at a location
+        (has ?r - robot ?p - package) ; Robot has a package
+        (delivered ?p - package) ; Package has been delivered
+        (assigned ?p - package ?r - robot) ; Package is assigned to a robot
+        (destination ?p - package ?l - location) ; Destination of a package
+        (available ?r - robot) ; Robot is available
+        (heavy ?p - package) ; Package is heavy
+        (fragile ?p - package) ; Package is fragile
+        (flammable ?p - package) ; Package is flammable
+        (perishable ?p - package) ; Package is perishable
+        (urgent ?p - package) ; Package needs to be delivered urgently
+        (can-handle-heavy ?r - robot) ; Robot can handle heavy packages
+        (can-handle-fragile ?r - robot) ; Robot can handle fragile packages
+        (flame-resistant ?r - robot) ; Robot can handle flammable packages
+        (blocked ?from ?to - location) ; Path between locations is blocked
+        (needs-maintenance ?r - robot) ; Robot needs maintenance
+        (maintenance-completed ?r - robot) ; Robot has completed maintenance
+    )
+
+    ;;; Top-level task
+    ;; - deliver-packages: Represents the goal of delivering all packages in the warehouse.
+    (:task deliver-packages
+    )
+
+    ;;; Abstract tasks
+    ;; - These represent high-level activities that are decomposed into subtasks or actions.
+    (:task choose-package
+    )
+    (:task deliver-urgent-package
+    )
+    (:task deliver-one-package
+    )
+    (:task move-to
+        :parameters (?r - robot ?l - location)
+    )
+    (:task clear-blockage
+        :parameters (?from ?to - location)
+    )
+    (:task maintenance-check
+    )
+    (:task perform-maintenance-on-robot
+        :parameters (?r - robot)
+    )
+    (:task select-robot-for-maintenance
+        :parameters (?r - robot)
+    )
+
+    ;;; Methods
+    ;; - Define how to accomplish abstract tasks by breaking them down into subtasks or other methods.
+
+    ; Method: m_deliver-all
+    ;; - Decomposes the deliver-packages task into subtasks to recursively deliver all packages.
+    (:method m_deliver-all
+        :task
+        (deliver-packages)
+        :precondition (exists
+            (?p - package)
+            (not (delivered ?p)))
+        :ordered-subtasks
+        (and
+            (maintenance-check) ; Check if any robot needs maintenance
+            (choose-package) ; Choose a package to deliver
+            (deliver-packages) ; Recursively continue delivering packages
+        )
+    )
+
+    ; Method: m_all-delivered
+    ;; - Base case when all packages have been delivered; no further action is required.
+    (:method m_all-delivered
+        :task
+        (deliver-packages)
+        :precondition (forall
+            (?p - package)
+            (delivered ?p))
+        :subtasks
+        ()
+    )
+
+    ;;; Methods for maintenance check
+    ; Method: m_maintenance-needed
+    ;; - Checks if a robot needs maintenance and performs it if required.
+    (:method m_maintenance-needed
+        :parameters (?r - robot)
+        :task
+        (maintenance-check)
+        :precondition (needs-maintenance ?r)
+        :ordered-subtasks
+        (and
+            (select-robot-for-maintenance ?r) ; Select a robot that needs maintenance
+            (perform-maintenance-on-robot ?r) ; Perform maintenance
+            (maintenance-check) ; Recursively check for more robots needing maintenance
+        )
+    )
+
+    ; Method: m_no-maintenance-needed
+    ;; - Indicates no robots need maintenance; no further action is required.
+    (:method m_no-maintenance-needed
+        :task
+        (maintenance-check)
+        :precondition (forall
+            (?r - robot)
+            (not (needs-maintenance ?r)))
+        :subtasks
+        ()
+    )
+
+    ; Method: m_select-robot-for-maintenance
+    ;; - Selects a robot for maintenance if it requires it.
+    (:method m_select-robot-for-maintenance
+        :parameters (?r - robot)
+        :task
+        (select-robot-for-maintenance ?r)
+        :precondition (needs-maintenance ?r)
+        :subtasks
+        ()
+    )
+
+    ; Method: m_perform-maintenance-on-robot
+    ;; - Moves the robot to the maintenance bay and performs maintenance.
+    (:method m_perform-maintenance-on-robot
+        :parameters (?r - robot)
+        :task
+        (perform-maintenance-on-robot ?r)
+        :ordered-subtasks
+        (and
+            (move-to ?r maintenance-bay) ; Move to maintenance bay
+            (maintenance-action ?r) ; Perform maintenance action
+            (mark-maintenance-completed ?r) ; Mark maintenance as completed
+        )
+    )
+
+    ;;; Methods to choose which package to deliver
+    ; Method: m_choose-urgent
+    ;; - Prioritizes the delivery of urgent or perishable packages.
+    (:method m_choose-urgent
+        :task
+        (choose-package)
+        :precondition (exists
+            (?p - package)
+            (and (or (urgent ?p) (perishable ?p)) (not (delivered ?p))))
+        :subtasks
+        (deliver-urgent-package)
+    )
+
+    ; Method: m_choose-regular
+    ;; - Selects a regular package (not urgent or perishable) for delivery.
+    (:method m_choose-regular
+        :task
+        (choose-package)
+        :precondition (exists
+            (?p - package)
+            (and (not (urgent ?p)) (not (perishable ?p)) (not (delivered ?p))))
+        :subtasks
+        (deliver-one-package)
+    )
+
+    ;;; Methods to deliver a package
+    ; Method: m_deliver-urgent-package
+    ;; - Delivers an urgent or perishable package using an available robot.
+    (:method m_deliver-urgent-package
+        :parameters (?p - package ?r - robot ?plocation - location ?dest - location)
+        :task
+        (deliver-urgent-package)
+        :precondition (and
+            (not (delivered ?p))
+            (or (urgent ?p) (perishable ?p))
+            (at ?p ?plocation)
+            (available ?r)
+            (destination ?p ?dest)
+            (not (needs-maintenance ?r))
+            ; Ensure the robot can handle the package's properties
+            (not (or
+                    (and (heavy ?p) (not (can-handle-heavy ?r)))
+                    (and (fragile ?p) (not (can-handle-fragile ?r)))
+                    (and (flammable ?p) (not (flame-resistant ?r)))
+                ))
+        )
+        :ordered-subtasks
+        (and
+            (assign-robot ?p ?r) ; Assign robot to package
+            (move-to ?r ?plocation) ; Move to package location
+            (pickup-package ?r ?p ?plocation) ; Pick up package
+            (move-to ?r ?dest) ; Move to destination
+            (dropoff-package ?r ?p ?dest) ; Drop off package
+            (mark-robot-available ?r) ; Mark robot as available
+            (schedule-maintenance ?r) ; Schedule maintenance
+        )
+    )
+
+    ; Method: m_deliver-one-package
+    ;; - Delivers a regular package using an available robot.
+    (:method m_deliver-one-package
+        :parameters (?p - package ?r - robot ?plocation - location ?dest - location)
+        :task
+        (deliver-one-package)
+        :precondition (and
+            (not (delivered ?p))
+            (not (urgent ?p))
+            (not (perishable ?p))
+            (at ?p ?plocation)
+            (available ?r)
+            (destination ?p ?dest)
+            (not (needs-maintenance ?r))
+            ; Ensure the robot can handle the package's properties
+            (not (or
+                    (and (heavy ?p) (not (can-handle-heavy ?r)))
+                    (and (fragile ?p) (not (can-handle-fragile ?r)))
+                    (and (flammable ?p) (not (flame-resistant ?r)))
+                ))
+        )
+        :ordered-subtasks
+        (and
+            (assign-robot ?p ?r) ; Assign robot to package
+            (move-to ?r ?plocation) ; Move to package location
+            (pickup-package ?r ?p ?plocation) ; Pick up package
+            (move-to ?r ?dest) ; Move to destination
+            (dropoff-package ?r ?p ?dest) ; Drop off package
+            (mark-robot-available ?r) ; Mark robot as available
+            (schedule-maintenance ?r) ; Schedule maintenance
+        )
+    )
+
+    ;;; Methods for moving robots
+    ; Method: m_move
+    ;; - Moves a robot towards a destination, breaking the movement into smaller steps.
+    (:method m_move
+        :parameters (?r - robot ?current - location ?next - location ?dest - location)
+        :task
+        (move-to ?r ?dest)
+        :precondition (and
+            (at ?r ?current)
+            (connected ?current ?next)
+            (not (blocked ?current ?next)))
+        :ordered-subtasks
+        (and
+            (move ?r ?current ?next) ; Move to the next location
+            (move-to ?r ?dest) ; Recursively move to destination
+        )
+    )
+
+    ; Method: m_handle-blocked
+    ;; - Handles blocked paths by clearing the blockage and then continuing to move.
+    (:method m_handle-blocked
+        :parameters (?r - robot ?current - location ?next - location ?dest - location)
+        :task
+        (move-to ?r ?dest)
+        :precondition (and
+            (at ?r ?current)
+            (connected ?current ?next)
+            (blocked ?current ?next))
+        :ordered-subtasks
+        (and
+            (clear-blockage ?current ?next) ; Clear the blockage
+            (move-to ?r ?dest) ; Continue moving to destination
+        )
+    )
+
+    ; Method: m_move-done
+    ;; - Base case for moving: robot is already at the destination.
+    (:method m_move-done
+        :parameters (?r - robot ?dest - location)
+        :task
+        (move-to ?r ?dest)
+        :precondition (at ?r ?dest)
+        :subtasks
+        ()
+    )
+
+    ;;; Method to clear blockage
+    ; Method: m_clear-blockage
+    ;; - Clears a blockage between two locations.
+    (:method m_clear-blockage
+        :parameters (?from - location ?to - location)
+        :task
+        (clear-blockage ?from ?to)
+        :precondition (blocked ?from ?to)
+        :subtasks
+        (remove-blockage ?from ?to) ; Action to remove blockage
+    )
+
+    ;;; Actions
+    ;; - Actions are the atomic operations that change the state of the world.
+
+    ; Action: move
+    ;; - Moves a robot between two connected locations, assuming the path is not blocked.
+    (:action move
+        :parameters (?r - robot ?from - location ?to - location)
+        :precondition (and
+            (at ?r ?from)
+            (connected ?from ?to)
+            (not (blocked ?from ?to)))
+        :effect (and
+            (not (at ?r ?from))
+            (at ?r ?to))
+    )
+
+    ; Action: remove-blockage
+    ;; - Removes a blockage between two locations to allow movement.
+    (:action remove-blockage
+        :parameters (?from - location ?to - location)
+        :precondition (blocked ?from ?to)
+        :effect (not (blocked ?from ?to))
+    )
+
+    ; Action: maintenance-action
+    ;; - Performs maintenance on a robot that is in the maintenance bay.
+    (:action maintenance-action
+        :parameters (?r - robot)
+        :precondition (and
+            (at ?r maintenance-bay)
+            (needs-maintenance ?r))
+        :effect (and
+            (maintenance-completed ?r)
+            (not (needs-maintenance ?r)))
+    )
+
+    ; Action: mark-maintenance-completed
+    ;; - Marks maintenance as completed and makes the robot available for tasks.
+    (:action mark-maintenance-completed
+        :parameters (?r - robot)
+        :precondition (maintenance-completed ?r)
+        :effect (and
+            (not (maintenance-completed ?r))
+            (available ?r))
+    )
+
+    ; Action: pickup-package
+    ;; - Allows a robot to pick up a package at a specified location.
+    (:action pickup-package
+        :parameters (?r - robot ?p - package ?l - location)
+        :precondition (and
+            (at ?r ?l)
+            (at ?p ?l)
+            (assigned ?p ?r)
+            ; Ensure the robot can handle the package's properties
+            (not (or
+                    (and (heavy ?p) (not (can-handle-heavy ?r)))
+                    (and (fragile ?p) (not (can-handle-fragile ?r)))
+                    (and (flammable ?p) (not (flame-resistant ?r)))
+                ))
+        )
+        :effect (and
+            (has ?r ?p)
+            (not (at ?p ?l)))
+    )
+
+    ; Action: dropoff-package
+    ;; - Allows a robot to drop off a package at a specified destination.
+    (:action dropoff-package
+        :parameters (?r - robot ?p - package ?l - location)
+        :precondition (and
+            (at ?r ?l)
+            (has ?r ?p))
+        :effect (and
+            (not (has ?r ?p))
+            (at ?p ?l)
+            (delivered ?p))
+    )
+
+    ; Action: assign-robot
+    ;; - Assigns a robot to a package for delivery, ensuring the robot is capable.
+    (:action assign-robot
+        :parameters (?p - package ?r - robot)
+        :precondition (and
+            (available ?r)
+            (not (assigned ?p ?r))
+            ; Ensure the robot can handle the package's properties
+            (not (or
+                    (and (heavy ?p) (not (can-handle-heavy ?r)))
+                    (and (fragile ?p) (not (can-handle-fragile ?r)))
+                    (and (flammable ?p) (not (flame-resistant ?r)))
+                ))
+        )
+        :effect (and
+            (assigned ?p ?r)
+            (not (available ?r)))
+    )
+
+    ; Action: mark-robot-available
+    ;; - Marks a robot as available after completing a delivery.
+    (:action mark-robot-available
+        :parameters (?r - robot)
+        :precondition (not (available ?r))
+        :effect (available ?r)
+    )
+
+    ; Action: schedule-maintenance
+    ;; - Schedules maintenance for a robot after completing a task.
+    (:action schedule-maintenance
+        :parameters (?r - robot)
+        :precondition ()
+        :effect (needs-maintenance ?r)
+    )
+)

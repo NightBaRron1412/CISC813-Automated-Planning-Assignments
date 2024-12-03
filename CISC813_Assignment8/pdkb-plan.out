@@ -1,0 +1,34 @@
+
+
+task contains conditional effects. turning off state domination.
+
+ --- OK.
+ Match tree built with 54 nodes.
+
+PDDL problem description loaded: 
+	Domain: UNDERCITY_INTRIGUE
+	Problem: UNDERCITY_INTRIGUE-PROB
+	#Actions: 54
+	#Fluents: 1407
+Goals found: 4
+Goals_Edges found: 4
+Starting search with 1-BFWS...
+--[4 / 0]--
+--[4 / 1]--
+--[4 / 3]--
+--[4 / 6]--
+--[4 / 170]--
+--[4 / 176]--
+--[4 / 343]--
+--[2 / 0]--
+--[2 / 258]--
+--[0 / 0]--
+--[0 / 256]--
+Total time: 0.00168696
+Nodes generated during search: 122
+Nodes expanded during search: 44
+Plan found with cost: 6
+Fast-BFS search completed in 0.00168696 secs
+Solving...
+/usr/local/lib/python3.6/dist-packages/PDKB_Planning_Library-0.1-py3.6.egg/pdkb/planners/bfws --domain pdkb-domain.pddl  --problem pdkb-problem.pddl --output pdkb-plan.txt --1-BFWS 1
+Done!

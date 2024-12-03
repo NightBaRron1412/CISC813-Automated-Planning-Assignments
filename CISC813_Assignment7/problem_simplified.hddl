@@ -1,0 +1,87 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Problem: Warehouse Logistics Problem
+; Domain: Warehouse Logistics
+; Description: Defines the initial state and goals for a warehouse logistics problem,
+;              involving multiple packages and robots within a warehouse setting.
+; Author: Amir Shetaia
+; Class: CISC813 - Automated Planning
+; Email: A.Shetaia@queensu.ca
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (problem warehouse-problem)
+    (:domain warehouse-logistics)
+    (:objects
+        ;; Define the packages that need to be delivered.
+        pkg1 pkg2 pkg3 pkg4 pkg5 - package
+        ;; Define the robots available for package delivery.
+        robot1 robot2 - robot
+        ;; Define the different locations within the warehouse.
+        storage-area loading-dock section-a section-b section-c section-d section-e - location
+    )
+
+    ;;; Top-level task
+    ;; - Represents the main goal of starting the delivery process of all packages.
+    (:htn
+        :subtasks
+        (deliver-packages) ; Top-level task to deliver all packages
+    )
+
+    ;;; Initial state of the world
+    ;; - Specifies the initial locations of all robots and packages, as well as the connectivity between locations.
+    (:init
+        ;;; Connections between locations
+        ;; - Defines all direct connections between locations in the warehouse.
+        ;; - These connections are used to navigate the robots between different sections of the warehouse.
+        (connected storage-area section-a)
+        (connected section-a storage-area)
+        (connected section-a section-b)
+        (connected section-b section-a)
+        (connected section-b section-c)
+        (connected section-c section-b)
+        (connected section-c section-d)
+        (connected section-d section-c)
+        (connected section-d section-e)
+        (connected section-e section-d)
+        (connected section-e loading-dock)
+        (connected loading-dock section-e)
+
+        ;;; Initial locations of robots and their capabilities
+        ;; - Specifies where each robot starts and what capabilities they have.
+        (at robot1 loading-dock) ; Robot1 starts at the loading dock
+        (at robot2 loading-dock) ; Robot2 starts at the loading dock
+        (available robot1) ; Robot1 is available for assignments
+        (available robot2) ; Robot2 is available for assignments
+        (can-handle-heavy robot1) ; Robot1 can handle heavy packages
+        (can-handle-fragile robot2) ; Robot2 can handle fragile packages
+
+        ;;; Initial locations and properties of packages
+        ;; - Specifies the starting locations of the packages and their properties (heavy or fragile).
+        (at pkg1 storage-area) ; Package1 is located at the storage area
+        (at pkg2 storage-area) ; Package2 is also located at the storage area
+        (at pkg3 storage-area) ; Package3 is also located at the storage area
+        (at pkg4 section-d) ; Package4, which is heavy, is located at section-d
+        (at pkg5 section-e) ; Package5, which is fragile, is located at section-e
+        (heavy pkg4) ; Package4 is heavy
+        (fragile pkg5) ; Package5 is fragile
+
+        ;;; Destinations for each package
+        ;; - Defines the delivery destination for each package.
+        (destination pkg1 section-a) ; Package1 needs to be delivered to section-a
+        (destination pkg2 section-b) ; Package2 needs to be delivered to section-b
+        (destination pkg3 section-c) ; Package3 needs to be delivered to section-c
+        (destination pkg4 loading-dock) ; Package4 (heavy) needs to be delivered to the loading dock
+        (destination pkg5 loading-dock) ; Package5 (fragile) needs to be delivered to the loading dock
+    )
+
+    ;;; Goal state
+    ;; - Specifies that all packages need to be delivered to their destinations for the problem to be considered solved.
+    (:goal
+        (and
+            (delivered pkg1) ; Package1 has been delivered to its destination
+            (delivered pkg2) ; Package2 has been delivered to its destination
+            (delivered pkg3) ; Package3 has been delivered to its destination
+            (delivered pkg4) ; Package4 has been delivered to its destination
+            (delivered pkg5) ; Package5 has been delivered to its destination
+        )
+    )
+)

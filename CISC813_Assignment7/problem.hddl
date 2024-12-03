@@ -1,0 +1,133 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Problem: Warehouse Logistics Problem
+; Domain: Warehouse Logistics
+; Description: Defines the initial state and goals for a warehouse logistics problem
+; Author: Amir Shetaia
+; Class: CISC813 - Automated Planning
+; Email: A.Shetaia@queensu.ca
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (problem warehouse-problem)
+    (:domain warehouse-logistics)
+    (:objects
+        ;; Define all the packages and robots in the problem
+        ;; Packages: pkg1, pkg2, ..., pkg7
+        ;; Robots: robot1, robot2, robot3, robot4
+        pkg1 pkg2 pkg3 pkg4 pkg5 pkg6 pkg7 - package
+        robot1 robot2 robot3 robot4 - robot
+        ;; Define all locations within the warehouse
+        storage-area loading-dock section-a section-b section-c section-d section-e obstacle-area maintenance-bay - location
+    )
+
+    ;;; Top-level task
+    ;; - Represents the main goal of starting the delivery process of all packages.
+    ;; - This task will be decomposed into subtasks according to the methods defined in the domain.
+    (:htn
+        :subtasks
+        (deliver-packages) ; The top-level task of delivering all packages
+    )
+
+    ;;; Initial state of the world
+    ;; - Defines the initial conditions including locations of robots and packages,
+    ;;   connectivity between locations, and properties of robots and packages.
+    (:init
+        ;;; Connections between locations
+        ;; - Define all direct paths between different locations in the warehouse.
+        ;; - This will be used by the robots to navigate between different areas.
+        (connected storage-area section-a)
+        (connected section-a storage-area)
+        (connected section-a section-b)
+        (connected section-b section-a)
+        (connected section-b section-c)
+        (connected section-c section-b)
+        (connected section-c section-d)
+        (connected section-d section-c)
+        (connected section-d section-e)
+        (connected section-e section-d)
+        (connected section-e loading-dock)
+        (connected loading-dock section-e)
+        (connected section-b obstacle-area)
+        (connected obstacle-area section-b)
+        (connected obstacle-area section-d)
+        (connected section-d obstacle-area)
+        (connected maintenance-bay storage-area)
+        (connected storage-area maintenance-bay)
+        ;; Additional connections added for better navigation of robots
+        (connected maintenance-bay section-a)
+        (connected section-a maintenance-bay)
+
+        ;;; Blocked paths
+        ;; - Indicates that the path between section-b and obstacle-area is blocked.
+        ;; - Robots will need to clear this blockage before they can move between these locations.
+        (blocked section-b obstacle-area)
+
+        ;;; Initial locations of robots
+        ;; - Specifies the starting locations of all robots in the warehouse.
+        ;; - This information is crucial for planning the movements and tasks of each robot.
+        (at robot1 loading-dock) ; Robot1 starts at the loading dock
+        (at robot2 loading-dock) ; Robot2 also starts at the loading dock
+        (at robot3 storage-area) ; Robot3 starts at the storage area
+        (at robot4 maintenance-bay) ; Robot4 starts at the maintenance bay
+        ;; - Indicates that some robots are available for package delivery.
+        (available robot1)
+        (available robot2)
+        (available robot3)
+        ;; Note: Robot4 is not available initially due to a maintenance requirement.
+
+        ;;; Capabilities of robots
+        ;; - Defines the specific capabilities of each robot, which will determine which packages they can handle.
+        (can-handle-heavy robot1) ; Robot1 can handle heavy packages
+        (can-handle-fragile robot2) ; Robot2 can handle fragile packages
+        (can-handle-heavy robot3) ; Robot3 can handle heavy packages
+        (can-handle-fragile robot3) ; Robot3 can also handle fragile packages
+        (flame-resistant robot4) ; Robot4 is resistant to flames, suitable for handling flammable packages
+
+        ;;; Maintenance requirements
+        ;; - Indicates that robot4 needs maintenance before it can be made available for other tasks.
+        (needs-maintenance robot4)
+
+        ;;; Initial locations and properties of packages
+        ;; - Specifies the starting locations and properties of all packages in the warehouse.
+        ;; - Packages have different attributes such as heavy, fragile, perishable, and flammable that impact how they are handled.
+        (at pkg1 storage-area) ; Package1 is located at the storage area
+        (at pkg2 storage-area) ; Package2 is also located at the storage area
+        (at pkg3 storage-area) ; Package3 is also located at the storage area
+        (at pkg4 section-d) ; Package4, which is heavy, is located at section-d
+        (at pkg5 section-e) ; Package5, which is fragile, is located at section-e
+        (at pkg6 storage-area) ; Package6, which is perishable, is located at the storage area
+        (at pkg7 section-c) ; Package7, which is flammable, is located at section-c
+        ;; Package properties
+        (heavy pkg4) ; Package4 is heavy
+        (fragile pkg5) ; Package5 is fragile
+        (perishable pkg6) ; Package6 is perishable
+        (flammable pkg7) ; Package7 is flammable
+        (urgent pkg2) ; Package2 needs to be delivered urgently
+
+        ;;; Destinations for packages
+        ;; - Specifies the target locations for each package to be delivered.
+        ;; - This information is crucial for planning the delivery tasks for each robot.
+        (destination pkg1 section-a) ; Package1 needs to be delivered to section-a
+        (destination pkg2 section-b) ; Package2 needs to be delivered to section-b
+        (destination pkg3 section-c) ; Package3 needs to be delivered to section-c
+        (destination pkg4 loading-dock) ; Package4 (heavy) needs to be delivered to the loading dock
+        (destination pkg5 loading-dock) ; Package5 (fragile) needs to be delivered to the loading dock
+        (destination pkg6 loading-dock) ; Package6 (perishable) needs to be delivered to the loading dock
+        (destination pkg7 loading-dock) ; Package7 (flammable) needs to be delivered to the loading dock
+    )
+
+    ;;; Goal state
+    ;; - The objective is to have all packages delivered to their respective destinations.
+    ;; - Each package must be moved from its initial location to the designated destination.
+    ;; - Once all packages are delivered, the problem is considered solved.
+    (:goal
+        (and
+            (delivered pkg1) ; Package1 has been delivered to its destination
+            (delivered pkg2) ; Package2 has been delivered to its destination
+            (delivered pkg3) ; Package3 has been delivered to its destination
+            (delivered pkg4) ; Package4 has been delivered to its destination
+            (delivered pkg5) ; Package5 has been delivered to its destination
+            (delivered pkg6) ; Package6 has been delivered to its destination
+            (delivered pkg7) ; Package7 has been delivered to its destination
+        )
+    )
+)

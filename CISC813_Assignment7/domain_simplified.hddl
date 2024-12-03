@@ -1,0 +1,240 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Domain: Warehouse Logistics
+; Description: Models logistics in a warehouse with the use of robots for package delivery.
+;              This domain involves robots with different capabilities delivering packages
+;              to designated locations within the warehouse.
+; Author: Amir Shetaia
+; Class: CISC813 - Automated Planning
+; Email: A.Shetaia@queensu.ca
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (domain warehouse-logistics)
+    (:requirements :strips :typing :hierarchy)
+
+    ;;; Types
+    ;; - location: Represents different areas within the warehouse.
+    ;; - package: Represents packages that need to be transported.
+    ;; - robot: Represents robots used for transporting packages.
+    (:types
+        location package robot - object
+    )
+
+    ;;; Constants
+    ;; - Defines specific locations within the warehouse, such as storage-area, loading-dock, and sections A-E.
+    (:constants
+        storage-area loading-dock section-a section-b section-c section-d section-e - location
+    )
+
+    ;;; Predicates
+    ;; - connected: Indicates if two locations are directly connected.
+    ;; - at: Tracks the current location of an entity (robot or package).
+    ;; - has: Indicates if a robot is carrying a specific package.
+    ;; - delivered: Indicates if a package has been delivered to its destination.
+    ;; - assigned: Represents if a package is assigned to a particular robot.
+    ;; - destination: Specifies the target location for a package.
+    ;; - available: Indicates if a robot is free to take on a new task.
+    ;; - heavy, fragile: Represents specific properties of packages that may impact handling requirements.
+    ;; - can-handle-heavy, can-handle-fragile: Represents capabilities of robots to handle specific types of packages.
+    (:predicates
+        (connected ?l1 ?l2 - location) ; Locations are connected
+        (at ?e - object ?l - location) ; An object is at a location
+        (has ?r - robot ?p - package) ; Robot has a package
+        (delivered ?p - package) ; Package has been delivered
+        (assigned ?p - package ?r - robot) ; Package is assigned to a robot
+        (destination ?p - package ?l - location) ; Destination of a package
+        (available ?r - robot) ; Robot is available
+        (heavy ?p - package) ; Package is heavy
+        (fragile ?p - package) ; Package is fragile
+        (can-handle-heavy ?r - robot) ; Robot can handle heavy packages
+        (can-handle-fragile ?r - robot) ; Robot can handle fragile packages
+    )
+
+    ;;; Top-level task
+    ;; - deliver-packages: Represents the main goal of delivering all packages in the warehouse.
+    (:task deliver-packages
+    )
+
+    ;;; Abstract tasks
+    ;; - deliver-one-package: Represents the task of delivering a single package.
+    ;; - move-to: Represents the task of moving a robot to a specific location.
+    (:task deliver-one-package
+    )
+    (:task move-to
+        :parameters (?r - robot ?l - location)
+    )
+
+    ;;; Methods
+    ;; - Methods define how abstract tasks can be decomposed into subtasks or actions.
+
+    ; Method: m_deliver-all
+    ;; - Decomposes the deliver-packages task into subtasks to recursively deliver all packages.
+    ;; - Recursively delivers one package and then calls deliver-packages again until all packages are delivered.
+    (:method m_deliver-all
+        :task
+        (deliver-packages)
+        :precondition (exists
+            (?p - package)
+            (not (delivered ?p)))
+        :ordered-subtasks
+        (and
+            (deliver-one-package) ; Deliver one package
+            (deliver-packages) ; Recursively continue delivering packages
+        )
+    )
+
+    ; Method: m_all-delivered
+    ;; - Base case when all packages have been delivered; no further action is required.
+    (:method m_all-delivered
+        :task
+        (deliver-packages)
+        :precondition (forall
+            (?p - package)
+            (delivered ?p))
+        :subtasks
+        ()
+    )
+
+    ; Method: m_deliver-one-package
+    ;; - Represents the steps required to deliver a single package.
+    ;; - Assigns a robot to the package, moves the robot to the package location, picks up the package, moves to the destination, and drops it off.
+    (:method m_deliver-one-package
+        :parameters (?p - package ?r - robot ?plocation ?dest - location)
+        :task
+        (deliver-one-package)
+        :precondition (and
+            (not (delivered ?p)) ; Package has not been delivered yet
+            (at ?p ?plocation) ; Package is at its initial location
+            (available ?r) ; Robot is available to perform the task
+            (destination ?p ?dest) ; Destination for the package is defined
+            ; Ensure that the robot can handle the package's properties
+            (or
+                (and (heavy ?p) (can-handle-heavy ?r)) ; Heavy package and capable robot
+                (and (fragile ?p) (can-handle-fragile ?r)) ; Fragile package and capable robot
+                (and (not (heavy ?p)) (not (fragile ?p))) ; Package is neither heavy nor fragile
+            )
+        )
+        :ordered-subtasks
+        (and
+            (assign-robot ?p ?r) ; Assign robot to package
+            (move-to ?r ?plocation) ; Move robot to package location
+            (pickup-package ?r ?p ?plocation) ; Pick up the package
+            (move-to ?r ?dest) ; Move robot to the destination
+            (dropoff-package ?r ?p ?dest) ; Drop off the package at the destination
+            (mark-robot-available ?r) ; Mark robot as available after completing the task
+        )
+    )
+
+    ; Method: m_move
+    ;; - Moves a robot recursively from its current location to the destination.
+    ;; - Decomposes the move-to task into smaller move actions until the destination is reached.
+    (:method m_move
+        :parameters (?r - robot ?current ?next ?dest - location)
+        :task
+        (move-to ?r ?dest)
+        :precondition (and
+            (at ?r ?current) ; Robot is at the current location
+            (connected ?current ?next) ; The next location is connected to the current one
+        )
+        :ordered-subtasks
+        (and
+            (move ?r ?current ?next) ; Move to the next location
+            (move-to ?r ?dest) ; Recursively move towards the destination
+        )
+    )
+
+    ; Method: m_move-done
+    ;; - Base case for moving: Robot is already at the destination, no further movement is required.
+    (:method m_move-done
+        :parameters (?r - robot ?dest - location)
+        :task
+        (move-to ?r ?dest)
+        :precondition (at ?r ?dest) ; Robot is at the destination
+        :subtasks
+        ()
+    )
+
+    ;;; Actions
+    ;; - Actions represent the atomic operations that change the state of the world.
+
+    ; Action: move
+    ;; - Moves a robot between two connected locations.
+    ;; - Preconditions: Robot must be at the starting location, and the locations must be connected.
+    ;; - Effects: Robot is no longer at the starting location and is now at the target location.
+    (:action move
+        :parameters (?r - robot ?from ?to - location)
+        :precondition (and
+            (at ?r ?from) ; Robot is at the starting location
+            (connected ?from ?to) ; Locations are connected
+        )
+        :effect (and
+            (not (at ?r ?from)) ; Robot leaves the starting location
+            (at ?r ?to) ; Robot arrives at the target location
+        )
+    )
+
+    ; Action: pickup-package
+    ;; - Allows a robot to pick up a package at a specified location.
+    ;; - Preconditions: Robot and package must be at the same location, and the robot must be assigned to the package.
+    ;; - Effects: The robot now has the package, and the package is no longer at the location.
+    (:action pickup-package
+        :parameters (?r - robot ?p - package ?l - location)
+        :precondition (and
+            (at ?r ?l) ; Robot is at the package location
+            (at ?p ?l) ; Package is at the location
+            (assigned ?p ?r) ; Package is assigned to the robot
+            ; Ensure the robot can handle the package's properties
+            (or
+                (and (heavy ?p) (can-handle-heavy ?r)) ; Heavy package and capable robot
+                (and (fragile ?p) (can-handle-fragile ?r)) ; Fragile package and capable robot
+                (and (not (heavy ?p)) (not (fragile ?p))) ; Package is neither heavy nor fragile
+            )
+        )
+        :effect (and
+            (has ?r ?p) ; Robot has the package
+            (not (at ?p ?l)) ; Package is no longer at the location
+        )
+    )
+
+    ; Action: dropoff-package
+    ;; - Allows a robot to drop off a package at a specified destination.
+    ;; - Preconditions: Robot must be at the destination with the package.
+    ;; - Effects: The package is at the destination and marked as delivered.
+    (:action dropoff-package
+        :parameters (?r - robot ?p - package ?l - location)
+        :precondition (and
+            (at ?r ?l) ; Robot is at the drop-off location
+            (has ?r ?p) ; Robot has the package
+        )
+        :effect (and
+            (not (has ?r ?p)) ; Robot no longer has the package
+            (at ?p ?l) ; Package is at the drop-off location
+            (delivered ?p) ; Package is marked as delivered
+        )
+    )
+
+    ; Action: assign-robot
+    ;; - Assigns a robot to a package for delivery.
+    ;; - Preconditions: The robot must be available, and the package must not already be assigned.
+    ;; - Effects: The robot is assigned to the package and becomes unavailable for other tasks.
+    (:action assign-robot
+        :parameters (?p - package ?r - robot)
+        :precondition (and
+            (available ?r) ; Robot is available
+            (not (assigned ?p ?r)) ; Package is not yet assigned to the robot
+        )
+        :effect (and
+            (assigned ?p ?r) ; Package is assigned to the robot
+            (not (available ?r)) ; Robot is no longer available
+        )
+    )
+
+    ; Action: mark-robot-available
+    ;; - Marks a robot as available after completing a task.
+    ;; - Preconditions: The robot must currently be unavailable.
+    ;; - Effects: The robot becomes available for new tasks.
+    (:action mark-robot-available
+        :parameters (?r - robot)
+        :precondition (not (available ?r)) ; Robot is currently unavailable
+        :effect (available ?r) ; Robot becomes available
+    )
+)

@@ -1,0 +1,92 @@
+///////////////////////////////////////////////////////////////////////////////
+// Instance: epidemic_instance_1
+// Description: Simulates an epidemic in a network of 4 regions, each with its
+//              population and connectivity. The instance includes 3 hospitals 
+//              that serve different regions, each with varying base capacities.
+//              The goal is to test how the domain model manages disease spread 
+//              and hospital loads across multiple regions.
+//
+// Course: CISC813 - Automated Planning
+// Assignment 4
+// Author: Amir Shetaia
+// Email: a.shetaia@queensu.ca
+///////////////////////////////////////////////////////////////////////////////
+
+instance epidemic_instance_1 {
+    // Link the instance to the domain model "epidemic_control"
+    domain = epidemic_control;
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Objects: Define the specific instances of regions and hospitals.
+    ///////////////////////////////////////////////////////////////////////////
+    objects {
+        // Four regions in this instance
+        region: {r1, r2, r3, r4};  
+        // Three hospitals in this instance
+        hospital: {h1, h2, h3};    
+    };
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Non-fluents: Define constants that do not change during the simulation,
+    //              such as the geographical layout, hospital locations, and 
+    //              base population sizes.
+    ///////////////////////////////////////////////////////////////////////////
+    non-fluents {
+        // Define adjacency (connectivity) between regions to model disease spread
+        // Regions that are adjacent to each other can transmit the disease
+        ADJACENT(r1, r2) = true;   // Region r1 is adjacent to r2
+        ADJACENT(r2, r1) = true;   // Symmetric relationship
+        ADJACENT(r2, r3) = true;   // Region r2 is adjacent to r3
+        ADJACENT(r3, r2) = true;
+        ADJACENT(r3, r4) = true;   // Region r3 is adjacent to r4
+        ADJACENT(r4, r3) = true;
+        
+        // Define which hospital serves which region
+        // Hospitals are mapped to specific regions they primarily serve
+        HOSPITAL_REGION(h1, r1) = true; // Hospital h1 serves region r1
+        HOSPITAL_REGION(h2, r2) = true; // Hospital h2 serves region r2
+        HOSPITAL_REGION(h3, r4) = true; // Hospital h3 serves region r4
+        
+        // Define the population size for each region
+        POPULATION(r1) = 12000.0;  // Region r1 has 12,000 people
+        POPULATION(r2) = 15000.0;  // Region r2 has 15,000 people
+        POPULATION(r3) = 10000.0;  // Region r3 has 10,000 people
+        POPULATION(r4) = 13000.0;  // Region r4 has 13,000 people
+        
+        // Define base hospital capacities
+        HOSPITAL_CAPACITY(h1) = 120.0;  // Hospital h1 has a capacity of 120 beds
+        HOSPITAL_CAPACITY(h2) = 150.0;  // Hospital h2 has a capacity of 150 beds
+        HOSPITAL_CAPACITY(h3) = 130.0;  // Hospital h3 has a capacity of 130 beds
+    };
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Init-state: Defines the initial conditions for the simulation, including
+    //             the number of susceptible and infected individuals in each 
+    //             region, and the initial load on each hospital.
+    ///////////////////////////////////////////////////////////////////////////
+    init-state {
+        // Initial number of susceptible and infected individuals in each region
+        susceptible(r1) = 11800.0;  // Region r1 starts with 11,800 susceptible
+        infected(r1) = 200.0;       // Region r1 starts with 200 infected
+        susceptible(r2) = 14900.0;  // Region r2 starts with 14,900 susceptible
+        infected(r2) = 100.0;       // Region r2 starts with 100 infected
+        susceptible(r3) = 9950.0;   // Region r3 starts with 9,950 susceptible
+        infected(r3) = 50.0;        // Region r3 starts with 50 infected
+        susceptible(r4) = 12950.0;  // Region r4 starts with 12,950 susceptible
+        infected(r4) = 50.0;        // Region r4 starts with 50 infected
+        
+        // Initial hospital occupancy
+        hospitalized(h1) = 20.0;  // Hospital h1 starts with 20 patients
+        hospitalized(h2) = 10.0;  // Hospital h2 starts with 10 patients
+        hospitalized(h3) = 5.0;   // Hospital h3 starts with 5 patients
+    };
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Horizon and discount factor: 
+    // - The horizon defines the number of decision-making steps (e.g., days).
+    // - The discount factor determines how future rewards are valued compared
+    //   to immediate rewards.
+    ///////////////////////////////////////////////////////////////////////////
+    horizon = 35;   // Plan over a time horizon of 35 steps
+    discount = 0.95; // Discount factor of 0.95 for future rewards
+}

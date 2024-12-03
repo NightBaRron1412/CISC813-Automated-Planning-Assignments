@@ -1,0 +1,4061 @@
+;; #state features
+149
++blocked[section-b,obstacle-area]
++at[robot1,loading-dock]
++at[robot2,loading-dock]
++at[robot3,storage-area]
++at[robot4,maintenance-bay]
++available[robot1]
++available[robot2]
++available[robot3]
++needs-maintenance[robot4]
++at[pkg1,storage-area]
++at[pkg2,storage-area]
++at[pkg3,storage-area]
++at[pkg4,section-d]
++at[pkg5,section-e]
++at[pkg6,storage-area]
++at[pkg7,section-c]
+-assigned[pkg1,robot1]
+-assigned[pkg1,robot2]
+-assigned[pkg1,robot3]
+-assigned[pkg1,robot4]
+-assigned[pkg2,robot1]
+-assigned[pkg2,robot2]
+-assigned[pkg2,robot3]
+-assigned[pkg2,robot4]
+-assigned[pkg3,robot1]
+-assigned[pkg3,robot2]
+-assigned[pkg3,robot3]
+-assigned[pkg3,robot4]
+-assigned[pkg4,robot1]
+-assigned[pkg4,robot3]
+-assigned[pkg5,robot2]
+-assigned[pkg5,robot3]
+-assigned[pkg6,robot1]
+-assigned[pkg6,robot2]
+-assigned[pkg6,robot3]
+-assigned[pkg6,robot4]
+-assigned[pkg7,robot4]
+-available[robot4]
+-delivered[pkg1]
+-delivered[pkg2]
+-delivered[pkg3]
+-delivered[pkg4]
+-delivered[pkg5]
+-delivered[pkg6]
+-delivered[pkg7]
+-needs-maintenance[robot1]
+-needs-maintenance[robot2]
+-needs-maintenance[robot3]
++needs-maintenance[robot1]
++needs-maintenance[robot2]
++needs-maintenance[robot3]
+-blocked[section-b,obstacle-area]
++maintenance-completed[robot4]
+-needs-maintenance[robot4]
++available[robot4]
++at[robot1,section-e]
++at[robot2,section-e]
++at[robot4,section-a]
++at[robot4,storage-area]
++at[robot3,maintenance-bay]
++at[robot3,section-a]
++assigned[pkg1,robot3]
+-available[robot3]
++assigned[pkg2,robot3]
++assigned[pkg3,robot3]
++assigned[pkg4,robot3]
++assigned[pkg5,robot3]
++assigned[pkg6,robot3]
++assigned[pkg1,robot1]
+-available[robot1]
++assigned[pkg2,robot1]
++assigned[pkg3,robot1]
++assigned[pkg4,robot1]
++assigned[pkg6,robot1]
++assigned[pkg1,robot2]
+-available[robot2]
++assigned[pkg2,robot2]
++assigned[pkg3,robot2]
++assigned[pkg5,robot2]
++assigned[pkg6,robot2]
++assigned[pkg1,robot4]
++assigned[pkg2,robot4]
++assigned[pkg3,robot4]
++assigned[pkg6,robot4]
++assigned[pkg7,robot4]
++at[robot1,section-d]
++at[robot2,section-d]
++at[robot4,section-b]
++maintenance-completed[robot3]
++at[robot3,section-b]
++has[robot3,pkg1]
++has[robot3,pkg2]
++has[robot3,pkg3]
++has[robot3,pkg6]
++has[robot2,pkg5]
++has[robot4,pkg1]
++has[robot4,pkg2]
++has[robot4,pkg3]
++has[robot4,pkg6]
++at[robot1,section-c]
++at[robot1,obstacle-area]
++has[robot1,pkg4]
++at[robot2,section-c]
++at[robot2,obstacle-area]
++at[robot4,section-c]
++at[robot4,obstacle-area]
++at[robot3,section-c]
++at[robot3,obstacle-area]
++delivered[pkg1]
++at[pkg1,section-a]
++delivered[pkg2]
++at[pkg2,section-b]
++delivered[pkg3]
++delivered[pkg6]
++at[pkg5,loading-dock]
++delivered[pkg5]
++at[robot1,section-b]
++at[pkg4,loading-dock]
++delivered[pkg4]
++at[robot2,section-b]
++at[robot4,section-d]
++has[robot4,pkg7]
++at[pkg3,section-c]
++at[robot3,section-d]
++at[robot1,section-a]
++has[robot1,pkg1]
++has[robot1,pkg2]
++has[robot1,pkg3]
++has[robot1,pkg6]
++has[robot3,pkg4]
++at[robot2,section-a]
++has[robot2,pkg1]
++has[robot2,pkg2]
++has[robot2,pkg3]
++has[robot2,pkg6]
++has[robot3,pkg5]
++at[robot4,section-e]
++delivered[pkg7]
++at[robot3,section-e]
++at[robot1,storage-area]
++at[robot1,maintenance-bay]
++at[pkg6,loading-dock]
++at[robot2,storage-area]
++at[robot2,maintenance-bay]
++at[robot4,loading-dock]
++at[robot3,loading-dock]
++maintenance-completed[robot1]
++maintenance-completed[robot2]
++at[pkg7,loading-dock]
+
+;; Mutex Groups
+149
+0 0 +blocked[section-b,obstacle-area]
+1 1 +at[robot1,loading-dock]
+2 2 +at[robot2,loading-dock]
+3 3 +at[robot3,storage-area]
+4 4 +at[robot4,maintenance-bay]
+5 5 +available[robot1]
+6 6 +available[robot2]
+7 7 +available[robot3]
+8 8 +needs-maintenance[robot4]
+9 9 +at[pkg1,storage-area]
+10 10 +at[pkg2,storage-area]
+11 11 +at[pkg3,storage-area]
+12 12 +at[pkg4,section-d]
+13 13 +at[pkg5,section-e]
+14 14 +at[pkg6,storage-area]
+15 15 +at[pkg7,section-c]
+16 16 -assigned[pkg1,robot1]
+17 17 -assigned[pkg1,robot2]
+18 18 -assigned[pkg1,robot3]
+19 19 -assigned[pkg1,robot4]
+20 20 -assigned[pkg2,robot1]
+21 21 -assigned[pkg2,robot2]
+22 22 -assigned[pkg2,robot3]
+23 23 -assigned[pkg2,robot4]
+24 24 -assigned[pkg3,robot1]
+25 25 -assigned[pkg3,robot2]
+26 26 -assigned[pkg3,robot3]
+27 27 -assigned[pkg3,robot4]
+28 28 -assigned[pkg4,robot1]
+29 29 -assigned[pkg4,robot3]
+30 30 -assigned[pkg5,robot2]
+31 31 -assigned[pkg5,robot3]
+32 32 -assigned[pkg6,robot1]
+33 33 -assigned[pkg6,robot2]
+34 34 -assigned[pkg6,robot3]
+35 35 -assigned[pkg6,robot4]
+36 36 -assigned[pkg7,robot4]
+37 37 -available[robot4]
+38 38 -delivered[pkg1]
+39 39 -delivered[pkg2]
+40 40 -delivered[pkg3]
+41 41 -delivered[pkg4]
+42 42 -delivered[pkg5]
+43 43 -delivered[pkg6]
+44 44 -delivered[pkg7]
+45 45 -needs-maintenance[robot1]
+46 46 -needs-maintenance[robot2]
+47 47 -needs-maintenance[robot3]
+48 48 +needs-maintenance[robot1]
+49 49 +needs-maintenance[robot2]
+50 50 +needs-maintenance[robot3]
+51 51 -blocked[section-b,obstacle-area]
+52 52 +maintenance-completed[robot4]
+53 53 -needs-maintenance[robot4]
+54 54 +available[robot4]
+55 55 +at[robot1,section-e]
+56 56 +at[robot2,section-e]
+57 57 +at[robot4,section-a]
+58 58 +at[robot4,storage-area]
+59 59 +at[robot3,maintenance-bay]
+60 60 +at[robot3,section-a]
+61 61 +assigned[pkg1,robot3]
+62 62 -available[robot3]
+63 63 +assigned[pkg2,robot3]
+64 64 +assigned[pkg3,robot3]
+65 65 +assigned[pkg4,robot3]
+66 66 +assigned[pkg5,robot3]
+67 67 +assigned[pkg6,robot3]
+68 68 +assigned[pkg1,robot1]
+69 69 -available[robot1]
+70 70 +assigned[pkg2,robot1]
+71 71 +assigned[pkg3,robot1]
+72 72 +assigned[pkg4,robot1]
+73 73 +assigned[pkg6,robot1]
+74 74 +assigned[pkg1,robot2]
+75 75 -available[robot2]
+76 76 +assigned[pkg2,robot2]
+77 77 +assigned[pkg3,robot2]
+78 78 +assigned[pkg5,robot2]
+79 79 +assigned[pkg6,robot2]
+80 80 +assigned[pkg1,robot4]
+81 81 +assigned[pkg2,robot4]
+82 82 +assigned[pkg3,robot4]
+83 83 +assigned[pkg6,robot4]
+84 84 +assigned[pkg7,robot4]
+85 85 +at[robot1,section-d]
+86 86 +at[robot2,section-d]
+87 87 +at[robot4,section-b]
+88 88 +maintenance-completed[robot3]
+89 89 +at[robot3,section-b]
+90 90 +has[robot3,pkg1]
+91 91 +has[robot3,pkg2]
+92 92 +has[robot3,pkg3]
+93 93 +has[robot3,pkg6]
+94 94 +has[robot2,pkg5]
+95 95 +has[robot4,pkg1]
+96 96 +has[robot4,pkg2]
+97 97 +has[robot4,pkg3]
+98 98 +has[robot4,pkg6]
+99 99 +at[robot1,section-c]
+100 100 +at[robot1,obstacle-area]
+101 101 +has[robot1,pkg4]
+102 102 +at[robot2,section-c]
+103 103 +at[robot2,obstacle-area]
+104 104 +at[robot4,section-c]
+105 105 +at[robot4,obstacle-area]
+106 106 +at[robot3,section-c]
+107 107 +at[robot3,obstacle-area]
+108 108 +delivered[pkg1]
+109 109 +at[pkg1,section-a]
+110 110 +delivered[pkg2]
+111 111 +at[pkg2,section-b]
+112 112 +delivered[pkg3]
+113 113 +delivered[pkg6]
+114 114 +at[pkg5,loading-dock]
+115 115 +delivered[pkg5]
+116 116 +at[robot1,section-b]
+117 117 +at[pkg4,loading-dock]
+118 118 +delivered[pkg4]
+119 119 +at[robot2,section-b]
+120 120 +at[robot4,section-d]
+121 121 +has[robot4,pkg7]
+122 122 +at[pkg3,section-c]
+123 123 +at[robot3,section-d]
+124 124 +at[robot1,section-a]
+125 125 +has[robot1,pkg1]
+126 126 +has[robot1,pkg2]
+127 127 +has[robot1,pkg3]
+128 128 +has[robot1,pkg6]
+129 129 +has[robot3,pkg4]
+130 130 +at[robot2,section-a]
+131 131 +has[robot2,pkg1]
+132 132 +has[robot2,pkg2]
+133 133 +has[robot2,pkg3]
+134 134 +has[robot2,pkg6]
+135 135 +has[robot3,pkg5]
+136 136 +at[robot4,section-e]
+137 137 +delivered[pkg7]
+138 138 +at[robot3,section-e]
+139 139 +at[robot1,storage-area]
+140 140 +at[robot1,maintenance-bay]
+141 141 +at[pkg6,loading-dock]
+142 142 +at[robot2,storage-area]
+143 143 +at[robot2,maintenance-bay]
+144 144 +at[robot4,loading-dock]
+145 145 +at[robot3,loading-dock]
+146 146 +maintenance-completed[robot1]
+147 147 +maintenance-completed[robot2]
+148 148 +at[pkg7,loading-dock]
+
+;; further strict Mutex Groups
+0
+
+;; further non strict Mutex Groups
+0
+
+;; known invariants
+0
+
+;; Actions
+359
+0
+137 113 115 118 112 110 108 -1
+-1
+-1
+0
+38 -1
+-1
+-1
+0
+44 -1
+-1
+-1
+0
+41 -1
+-1
+-1
+0
+40 -1
+-1
+-1
+0
+39 -1
+-1
+-1
+0
+42 -1
+-1
+-1
+0
+43 -1
+-1
+-1
+0
+122 40 46 6 -1
+-1
+-1
+1
+102 133 -1
+0 112  0 122  -1
+0 40  0 133  -1
+1
+122 102 77 -1
+0 133  -1
+0 122  -1
+1
+122 102 77 -1
+0 133  -1
+0 122  -1
+0
+102 -1
+-1
+-1
+0
+130 -1
+-1
+-1
+1
+130 -1
+0 119  -1
+0 130  -1
+1
+130 -1
+0 143  -1
+0 130  -1
+0
+86 -1
+-1
+-1
+1
+86 -1
+0 102  -1
+0 86  -1
+1
+86 -1
+0 56  -1
+0 86  -1
+1
+130 -1
+0 142  -1
+0 130  -1
+0
+2 -1
+-1
+-1
+1
+2 -1
+0 56  -1
+0 2  -1
+0
+56 -1
+-1
+-1
+1
+56 -1
+0 2  -1
+0 56  -1
+0
+51 119 -1
+-1
+-1
+1
+51 119 -1
+0 103  -1
+0 119  -1
+0
+119 -1
+-1
+-1
+1
+119 -1
+0 102  -1
+0 119  -1
+1
+119 -1
+0 130  -1
+0 119  -1
+0
+142 -1
+-1
+-1
+1
+142 -1
+0 143  -1
+0 142  -1
+0
+103 -1
+-1
+-1
+1
+103 -1
+0 86  -1
+0 103  -1
+1
+103 -1
+0 119  -1
+0 103  -1
+1
+142 -1
+0 130  -1
+0 142  -1
+1
+102 -1
+0 86  -1
+0 102  -1
+1
+102 -1
+0 119  -1
+0 102  -1
+1
+56 -1
+0 86  -1
+0 56  -1
+1
+86 -1
+0 103  -1
+0 86  -1
+0
+143 -1
+-1
+-1
+1
+143 -1
+0 130  -1
+0 143  -1
+1
+143 -1
+0 142  -1
+0 143  -1
+0
+119 0 -1
+-1
+-1
+0
+0 -1
+-1
+-1
+1
+0 -1
+0 51  -1
+0 0  -1
+1
+25 6 -1
+0 75  0 77  -1
+0 6  0 25  -1
+1
+25 6 -1
+0 75  0 77  -1
+0 6  0 25  -1
+1
+-1
+0 49  -1
+0 46  -1
+1
+75 -1
+0 6  -1
+0 75  -1
+1
+130 131 -1
+0 108  0 109  -1
+0 38  0 131  -1
+1
+17 6 -1
+0 75  0 74  -1
+0 6  0 17  -1
+1
+17 6 -1
+0 75  0 74  -1
+0 6  0 17  -1
+0
+109 38 46 6 -1
+-1
+-1
+1
+109 130 74 -1
+0 131  -1
+0 109  -1
+1
+109 130 74 -1
+0 131  -1
+0 109  -1
+0
+9 38 46 6 -1
+-1
+-1
+1
+142 9 74 -1
+0 131  -1
+0 9  -1
+1
+142 9 74 -1
+0 131  -1
+0 9  -1
+0
+11 40 46 6 -1
+-1
+-1
+1
+11 142 77 -1
+0 133  -1
+0 11  -1
+1
+11 142 77 -1
+0 133  -1
+0 11  -1
+1
+104 97 -1
+0 112  0 122  -1
+0 40  0 97  -1
+0
+104 -1
+-1
+-1
+0
+144 -1
+-1
+-1
+1
+144 -1
+0 136  -1
+0 144  -1
+0
+58 -1
+-1
+-1
+1
+58 -1
+0 4  -1
+0 58  -1
+0
+136 -1
+-1
+-1
+1
+136 -1
+0 144  -1
+0 136  -1
+1
+136 -1
+0 120  -1
+0 136  -1
+1
+58 -1
+0 57  -1
+0 58  -1
+0
+120 -1
+-1
+-1
+1
+120 -1
+0 105  -1
+0 120  -1
+1
+120 -1
+0 136  -1
+0 120  -1
+1
+120 -1
+0 104  -1
+0 120  -1
+0
+4 -1
+-1
+-1
+1
+4 -1
+0 57  -1
+0 4  -1
+1
+4 -1
+0 58  -1
+0 4  -1
+0
+57 -1
+-1
+-1
+1
+57 -1
+0 4  -1
+0 57  -1
+0
+105 -1
+-1
+-1
+1
+105 -1
+0 120  -1
+0 105  -1
+1
+105 -1
+0 87  -1
+0 105  -1
+1
+104 -1
+0 120  -1
+0 104  -1
+1
+104 -1
+0 87  -1
+0 104  -1
+0
+87 -1
+-1
+-1
+1
+87 -1
+0 57  -1
+0 87  -1
+1
+57 -1
+0 87  -1
+0 57  -1
+1
+57 -1
+0 58  -1
+0 57  -1
+1
+87 -1
+0 104  -1
+0 87  -1
+0
+51 87 -1
+-1
+-1
+1
+51 87 -1
+0 105  -1
+0 87  -1
+0
+87 0 -1
+-1
+-1
+1
+27 54 -1
+0 37  0 82  -1
+0 54  0 27  -1
+1
+27 54 -1
+0 37  0 82  -1
+0 54  0 27  -1
+1
+-1
+0 8  -1
+0 53  -1
+1
+37 -1
+0 54  -1
+0 37  -1
+0
+122 40 53 54 -1
+-1
+-1
+1
+122 104 82 -1
+0 97  -1
+0 122  -1
+1
+122 104 82 -1
+0 97  -1
+0 122  -1
+1
+144 121 -1
+0 137  0 148  -1
+0 44  0 121  -1
+1
+36 54 -1
+0 37  0 84  -1
+0 54  0 36  -1
+0
+44 53 15 54 -1
+-1
+-1
+1
+15 104 84 -1
+0 121  -1
+0 15  -1
+0
+148 44 53 54 -1
+-1
+-1
+1
+148 144 84 -1
+0 121  -1
+0 148  -1
+1
+2 94 -1
+0 115  0 114  -1
+0 42  0 94  -1
+1
+30 6 -1
+0 75  0 78  -1
+0 6  0 30  -1
+0
+114 42 46 6 -1
+-1
+-1
+1
+114 2 78 -1
+0 94  -1
+0 114  -1
+0
+122 40 47 7 -1
+-1
+-1
+1
+106 92 -1
+0 112  0 122  -1
+0 40  0 92  -1
+1
+122 106 64 -1
+0 92  -1
+0 122  -1
+1
+122 106 64 -1
+0 92  -1
+0 122  -1
+1
+122 106 64 -1
+0 92  -1
+0 122  -1
+1
+122 106 64 -1
+0 92  -1
+0 122  -1
+0
+106 -1
+-1
+-1
+0
+3 -1
+-1
+-1
+1
+3 -1
+0 60  -1
+0 3  -1
+0
+60 -1
+-1
+-1
+1
+60 -1
+0 3  -1
+0 60  -1
+0
+145 -1
+-1
+-1
+1
+145 -1
+0 138  -1
+0 145  -1
+0
+59 -1
+-1
+-1
+1
+59 -1
+0 60  -1
+0 59  -1
+1
+59 -1
+0 3  -1
+0 59  -1
+1
+60 -1
+0 89  -1
+0 60  -1
+1
+60 -1
+0 59  -1
+0 60  -1
+1
+3 -1
+0 59  -1
+0 3  -1
+1
+106 -1
+0 89  -1
+0 106  -1
+0
+89 -1
+-1
+-1
+1
+89 -1
+0 60  -1
+0 89  -1
+1
+106 -1
+0 123  -1
+0 106  -1
+1
+89 -1
+0 106  -1
+0 89  -1
+0
+51 89 -1
+-1
+-1
+1
+51 89 -1
+0 107  -1
+0 89  -1
+0
+123 -1
+-1
+-1
+1
+123 -1
+0 107  -1
+0 123  -1
+1
+123 -1
+0 138  -1
+0 123  -1
+0
+138 -1
+-1
+-1
+1
+138 -1
+0 123  -1
+0 138  -1
+1
+138 -1
+0 145  -1
+0 138  -1
+1
+123 -1
+0 106  -1
+0 123  -1
+0
+107 -1
+-1
+-1
+1
+107 -1
+0 123  -1
+0 107  -1
+1
+107 -1
+0 89  -1
+0 107  -1
+0
+89 0 -1
+-1
+-1
+1
+26 7 -1
+0 62  0 64  -1
+0 7  0 26  -1
+1
+26 7 -1
+0 62  0 64  -1
+0 7  0 26  -1
+1
+26 7 -1
+0 62  0 64  -1
+0 7  0 26  -1
+1
+26 7 -1
+0 62  0 64  -1
+0 7  0 26  -1
+1
+-1
+0 50  -1
+0 47  -1
+1
+62 -1
+0 7  -1
+0 62  -1
+1
+145 129 -1
+0 118  0 117  -1
+0 41  0 129  -1
+1
+29 7 -1
+0 62  0 65  -1
+0 7  0 29  -1
+1
+29 7 -1
+0 62  0 65  -1
+0 7  0 29  -1
+1
+145 135 -1
+0 115  0 114  -1
+0 42  0 135  -1
+1
+31 7 -1
+0 62  0 66  -1
+0 7  0 31  -1
+1
+31 7 -1
+0 62  0 66  -1
+0 7  0 31  -1
+0
+117 41 47 7 -1
+-1
+-1
+1
+145 117 65 -1
+0 129  -1
+0 117  -1
+1
+145 117 65 -1
+0 129  -1
+0 117  -1
+0
+114 42 47 7 -1
+-1
+-1
+1
+114 145 66 -1
+0 135  -1
+0 114  -1
+1
+114 145 66 -1
+0 135  -1
+0 114  -1
+1
+124 125 -1
+0 108  0 109  -1
+0 38  0 125  -1
+0
+124 -1
+-1
+-1
+1
+124 -1
+0 139  -1
+0 124  -1
+0
+51 116 -1
+-1
+-1
+1
+51 116 -1
+0 100  -1
+0 116  -1
+0
+116 -1
+-1
+-1
+1
+116 -1
+0 99  -1
+0 116  -1
+1
+116 -1
+0 124  -1
+0 116  -1
+1
+124 -1
+0 116  -1
+0 124  -1
+1
+124 -1
+0 140  -1
+0 124  -1
+0
+1 -1
+-1
+-1
+1
+1 -1
+0 55  -1
+0 1  -1
+0
+85 -1
+-1
+-1
+1
+85 -1
+0 99  -1
+0 85  -1
+1
+85 -1
+0 55  -1
+0 85  -1
+1
+85 -1
+0 100  -1
+0 85  -1
+0
+55 -1
+-1
+-1
+1
+55 -1
+0 1  -1
+0 55  -1
+1
+55 -1
+0 85  -1
+0 55  -1
+0
+99 -1
+-1
+-1
+1
+99 -1
+0 116  -1
+0 99  -1
+0
+100 -1
+-1
+-1
+1
+100 -1
+0 85  -1
+0 100  -1
+1
+100 -1
+0 116  -1
+0 100  -1
+1
+99 -1
+0 85  -1
+0 99  -1
+0
+139 -1
+-1
+-1
+1
+139 -1
+0 124  -1
+0 139  -1
+1
+139 -1
+0 140  -1
+0 139  -1
+0
+140 -1
+-1
+-1
+1
+140 -1
+0 139  -1
+0 140  -1
+1
+140 -1
+0 124  -1
+0 140  -1
+0
+116 0 -1
+-1
+-1
+1
+16 5 -1
+0 69  0 68  -1
+0 5  0 16  -1
+1
+16 5 -1
+0 69  0 68  -1
+0 5  0 16  -1
+1
+-1
+0 48  -1
+0 45  -1
+1
+69 -1
+0 5  -1
+0 69  -1
+0
+9 38 45 5 -1
+-1
+-1
+1
+9 139 68 -1
+0 125  -1
+0 9  -1
+1
+9 139 68 -1
+0 125  -1
+0 9  -1
+0
+38 45 109 5 -1
+-1
+-1
+1
+109 124 68 -1
+0 125  -1
+0 109  -1
+1
+109 124 68 -1
+0 125  -1
+0 109  -1
+0
+12 41 47 7 -1
+-1
+-1
+1
+12 123 65 -1
+0 129  -1
+0 12  -1
+1
+12 123 65 -1
+0 129  -1
+0 12  -1
+0
+13 42 47 7 -1
+-1
+-1
+1
+13 138 66 -1
+0 135  -1
+0 13  -1
+1
+13 138 66 -1
+0 135  -1
+0 13  -1
+1
+60 90 -1
+0 108  0 109  -1
+0 38  0 90  -1
+1
+18 7 -1
+0 62  0 61  -1
+0 7  0 18  -1
+1
+18 7 -1
+0 62  0 61  -1
+0 7  0 18  -1
+1
+18 7 -1
+0 62  0 61  -1
+0 7  0 18  -1
+1
+18 7 -1
+0 62  0 61  -1
+0 7  0 18  -1
+0
+109 38 47 7 -1
+-1
+-1
+1
+109 60 61 -1
+0 90  -1
+0 109  -1
+1
+109 60 61 -1
+0 90  -1
+0 109  -1
+1
+109 60 61 -1
+0 90  -1
+0 109  -1
+1
+109 60 61 -1
+0 90  -1
+0 109  -1
+1
+1 101 -1
+0 118  0 117  -1
+0 41  0 101  -1
+1
+28 5 -1
+0 69  0 72  -1
+0 5  0 28  -1
+0
+117 41 45 5 -1
+-1
+-1
+1
+117 1 72 -1
+0 101  -1
+0 117  -1
+0
+9 38 47 7 -1
+-1
+-1
+1
+3 9 61 -1
+0 90  -1
+0 9  -1
+1
+3 9 61 -1
+0 90  -1
+0 9  -1
+1
+3 9 61 -1
+0 90  -1
+0 9  -1
+1
+3 9 61 -1
+0 90  -1
+0 9  -1
+0
+11 40 47 7 -1
+-1
+-1
+1
+11 3 64 -1
+0 92  -1
+0 11  -1
+1
+11 3 64 -1
+0 92  -1
+0 11  -1
+1
+11 3 64 -1
+0 92  -1
+0 11  -1
+1
+11 3 64 -1
+0 92  -1
+0 11  -1
+0
+11 40 53 54 -1
+-1
+-1
+1
+11 58 82 -1
+0 97  -1
+0 11  -1
+1
+11 58 82 -1
+0 97  -1
+0 11  -1
+0
+12 41 45 5 -1
+-1
+-1
+1
+12 85 72 -1
+0 101  -1
+0 12  -1
+1
+57 95 -1
+0 108  0 109  -1
+0 38  0 95  -1
+1
+19 54 -1
+0 37  0 80  -1
+0 54  0 19  -1
+1
+19 54 -1
+0 37  0 80  -1
+0 54  0 19  -1
+0
+9 38 53 54 -1
+-1
+-1
+1
+9 58 80 -1
+0 95  -1
+0 9  -1
+1
+9 58 80 -1
+0 95  -1
+0 9  -1
+0
+109 38 53 54 -1
+-1
+-1
+1
+109 57 80 -1
+0 95  -1
+0 109  -1
+1
+109 57 80 -1
+0 95  -1
+0 109  -1
+1
+99 127 -1
+0 112  0 122  -1
+0 40  0 127  -1
+1
+24 5 -1
+0 69  0 71  -1
+0 5  0 24  -1
+1
+24 5 -1
+0 69  0 71  -1
+0 5  0 24  -1
+0
+11 40 45 5 -1
+-1
+-1
+1
+11 139 71 -1
+0 127  -1
+0 11  -1
+1
+11 139 71 -1
+0 127  -1
+0 11  -1
+0
+40 45 122 5 -1
+-1
+-1
+1
+122 99 71 -1
+0 127  -1
+0 122  -1
+1
+122 99 71 -1
+0 127  -1
+0 122  -1
+0
+13 42 46 6 -1
+-1
+-1
+1
+56 13 78 -1
+0 94  -1
+0 13  -1
+1
+119 132 -1
+0 110  0 111  -1
+0 39  0 132  -1
+1
+21 6 -1
+0 75  0 76  -1
+0 6  0 21  -1
+1
+21 6 -1
+0 75  0 76  -1
+0 6  0 21  -1
+0
+39 111 46 6 -1
+-1
+-1
+1
+111 119 76 -1
+0 132  -1
+0 111  -1
+1
+111 119 76 -1
+0 132  -1
+0 111  -1
+0
+111 39 45 5 -1
+-1
+-1
+1
+116 126 -1
+0 110  0 111  -1
+0 39  0 126  -1
+1
+111 116 70 -1
+0 126  -1
+0 111  -1
+1
+111 116 70 -1
+0 126  -1
+0 111  -1
+1
+20 5 -1
+0 69  0 70  -1
+0 5  0 20  -1
+1
+20 5 -1
+0 69  0 70  -1
+0 5  0 20  -1
+0
+10 39 46 6 -1
+-1
+-1
+1
+10 142 76 -1
+0 132  -1
+0 10  -1
+1
+10 142 76 -1
+0 132  -1
+0 10  -1
+1
+144 98 -1
+0 113  0 141  -1
+0 43  0 98  -1
+1
+35 54 -1
+0 37  0 83  -1
+0 54  0 35  -1
+1
+35 54 -1
+0 37  0 83  -1
+0 54  0 35  -1
+0
+141 43 53 54 -1
+-1
+-1
+1
+141 144 83 -1
+0 98  -1
+0 141  -1
+1
+141 144 83 -1
+0 98  -1
+0 141  -1
+1
+2 134 -1
+0 113  0 141  -1
+0 43  0 134  -1
+1
+33 6 -1
+0 75  0 79  -1
+0 6  0 33  -1
+1
+33 6 -1
+0 75  0 79  -1
+0 6  0 33  -1
+0
+14 43 46 6 -1
+-1
+-1
+1
+142 14 79 -1
+0 134  -1
+0 14  -1
+1
+142 14 79 -1
+0 134  -1
+0 14  -1
+0
+141 43 46 6 -1
+-1
+-1
+1
+141 2 79 -1
+0 134  -1
+0 141  -1
+1
+141 2 79 -1
+0 134  -1
+0 141  -1
+1
+145 93 -1
+0 113  0 141  -1
+0 43  0 93  -1
+1
+34 7 -1
+0 62  0 67  -1
+0 7  0 34  -1
+1
+34 7 -1
+0 62  0 67  -1
+0 7  0 34  -1
+1
+34 7 -1
+0 62  0 67  -1
+0 7  0 34  -1
+1
+34 7 -1
+0 62  0 67  -1
+0 7  0 34  -1
+0
+141 43 47 7 -1
+-1
+-1
+1
+141 145 67 -1
+0 93  -1
+0 141  -1
+1
+141 145 67 -1
+0 93  -1
+0 141  -1
+1
+141 145 67 -1
+0 93  -1
+0 141  -1
+1
+141 145 67 -1
+0 93  -1
+0 141  -1
+0
+10 39 45 5 -1
+-1
+-1
+1
+10 139 70 -1
+0 126  -1
+0 10  -1
+1
+10 139 70 -1
+0 126  -1
+0 10  -1
+0
+14 43 45 5 -1
+-1
+-1
+1
+1 128 -1
+0 113  0 141  -1
+0 43  0 128  -1
+1
+14 139 73 -1
+0 128  -1
+0 14  -1
+1
+14 139 73 -1
+0 128  -1
+0 14  -1
+1
+32 5 -1
+0 69  0 73  -1
+0 5  0 32  -1
+1
+32 5 -1
+0 69  0 73  -1
+0 5  0 32  -1
+0
+141 43 45 5 -1
+-1
+-1
+1
+141 1 73 -1
+0 128  -1
+0 141  -1
+1
+141 1 73 -1
+0 128  -1
+0 141  -1
+0
+14 43 47 7 -1
+-1
+-1
+1
+14 3 67 -1
+0 93  -1
+0 14  -1
+1
+14 3 67 -1
+0 93  -1
+0 14  -1
+1
+14 3 67 -1
+0 93  -1
+0 14  -1
+1
+14 3 67 -1
+0 93  -1
+0 14  -1
+0
+43 14 53 54 -1
+-1
+-1
+1
+14 58 83 -1
+0 98  -1
+0 14  -1
+1
+14 58 83 -1
+0 98  -1
+0 14  -1
+1
+89 91 -1
+0 110  0 111  -1
+0 39  0 91  -1
+1
+22 7 -1
+0 62  0 63  -1
+0 7  0 22  -1
+1
+22 7 -1
+0 62  0 63  -1
+0 7  0 22  -1
+1
+22 7 -1
+0 62  0 63  -1
+0 7  0 22  -1
+1
+22 7 -1
+0 62  0 63  -1
+0 7  0 22  -1
+0
+10 39 47 7 -1
+-1
+-1
+1
+10 3 63 -1
+0 91  -1
+0 10  -1
+1
+10 3 63 -1
+0 91  -1
+0 10  -1
+1
+10 3 63 -1
+0 91  -1
+0 10  -1
+1
+10 3 63 -1
+0 91  -1
+0 10  -1
+0
+39 47 111 7 -1
+-1
+-1
+1
+111 89 63 -1
+0 91  -1
+0 111  -1
+1
+111 89 63 -1
+0 91  -1
+0 111  -1
+1
+111 89 63 -1
+0 91  -1
+0 111  -1
+1
+111 89 63 -1
+0 91  -1
+0 111  -1
+1
+87 96 -1
+0 110  0 111  -1
+0 39  0 96  -1
+1
+23 54 -1
+0 37  0 81  -1
+0 54  0 23  -1
+1
+23 54 -1
+0 37  0 81  -1
+0 54  0 23  -1
+0
+10 39 53 54 -1
+-1
+-1
+1
+10 58 81 -1
+0 96  -1
+0 10  -1
+1
+10 58 81 -1
+0 96  -1
+0 10  -1
+0
+111 39 53 54 -1
+-1
+-1
+1
+111 87 81 -1
+0 96  -1
+0 111  -1
+1
+111 87 81 -1
+0 96  -1
+0 111  -1
+0
+53 47 46 45 -1
+-1
+-1
+0
+8 -1
+-1
+-1
+1
+4 8 -1
+0 53  0 52  -1
+0 8  -1
+1
+52 -1
+0 54  -1
+0 37  0 52  -1
+0
+49 -1
+-1
+-1
+1
+143 49 -1
+0 46  0 147  -1
+0 49  -1
+1
+147 -1
+0 6  -1
+0 75  0 147  -1
+0
+48 -1
+-1
+-1
+1
+140 48 -1
+0 45  0 146  -1
+0 48  -1
+1
+146 -1
+0 5  -1
+0 69  0 146  -1
+0
+50 -1
+-1
+-1
+1
+59 50 -1
+0 47  0 88  -1
+0 50  -1
+1
+88 -1
+0 7  -1
+0 62  0 88  -1
+
+;; initial state
+45 44 43 42 41 40 39 38 35 34 33 32 47 31 46 30 29 7 19 6 18 5 17 12 4 16 11 28 3 10 27 37 2 9 26 36 1 8 25 0 13 14 15 20 21 22 23 24 -1
+
+;; goal
+108 110 112 118 115 113 137 -1
+
+;; tasks (primitive and abstract)
+491
+0 __method_precondition_m_all-delivered[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-all[]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot2,section-c,section-c]
+0 dropoff-package[robot2,pkg3,section-c]
+0 pickup-package|instance_1[robot2,pkg3,section-c]
+0 pickup-package|instance_3[robot2,pkg3,section-c]
+0 __method_precondition_m_move-done[robot2,section-c]
+0 __method_precondition_m_move_split[robot2,section-a,section-b]
+0 move[robot2,section-a,section-b]
+0 move[robot2,section-a,maintenance-bay]
+0 __method_precondition_m_move_split[robot2,section-d,section-c]
+0 move[robot2,section-d,section-c]
+0 move[robot2,section-d,section-e]
+0 move[robot2,section-a,storage-area]
+0 __method_precondition_m_move_split[robot2,loading-dock,section-e]
+0 move[robot2,loading-dock,section-e]
+0 __method_precondition_m_move_split[robot2,section-e,loading-dock]
+0 move[robot2,section-e,loading-dock]
+0 __method_precondition_m_move_split[robot2,section-b,obstacle-area]
+0 move[robot2,section-b,obstacle-area]
+0 __method_precondition_m_move_split[robot2,section-b,section-c]
+0 move[robot2,section-b,section-c]
+0 move[robot2,section-b,section-a]
+0 __method_precondition_m_move_split[robot2,storage-area,maintenance-bay]
+0 move[robot2,storage-area,maintenance-bay]
+0 __method_precondition_m_move_split[robot2,obstacle-area,section-d]
+0 move[robot2,obstacle-area,section-d]
+0 move[robot2,obstacle-area,section-b]
+0 move[robot2,storage-area,section-a]
+0 move[robot2,section-c,section-d]
+0 move[robot2,section-c,section-b]
+0 move[robot2,section-e,section-d]
+0 move[robot2,section-d,obstacle-area]
+0 __method_precondition_m_move_split[robot2,maintenance-bay,section-a]
+0 move[robot2,maintenance-bay,section-a]
+0 move[robot2,maintenance-bay,storage-area]
+0 __method_precondition_m_handle-blocked_split[robot2,section-b,obstacle-area]
+0 __method_precondition_m_clear-blockage[section-b,obstacle-area]
+0 remove-blockage[section-b,obstacle-area]
+0 assign-robot|instance_1[pkg3,robot2]
+0 assign-robot|instance_3[pkg3,robot2]
+0 schedule-maintenance[robot2]
+0 mark-robot-available[robot2]
+0 dropoff-package[robot2,pkg1,section-a]
+0 assign-robot|instance_1[pkg1,robot2]
+0 assign-robot|instance_3[pkg1,robot2]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot2,section-a,section-a]
+0 pickup-package|instance_1[robot2,pkg1,section-a]
+0 pickup-package|instance_3[robot2,pkg1,section-a]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot2,storage-area,section-a]
+0 pickup-package|instance_1[robot2,pkg1,storage-area]
+0 pickup-package|instance_3[robot2,pkg1,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot2,storage-area,section-c]
+0 pickup-package|instance_1[robot2,pkg3,storage-area]
+0 pickup-package|instance_3[robot2,pkg3,storage-area]
+0 dropoff-package[robot4,pkg3,section-c]
+0 __method_precondition_m_move-done[robot4,section-c]
+0 __method_precondition_m_move_split[robot4,loading-dock,section-e]
+0 move[robot4,loading-dock,section-e]
+0 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+0 move[robot4,storage-area,maintenance-bay]
+0 __method_precondition_m_move_split[robot4,section-e,loading-dock]
+0 move[robot4,section-e,loading-dock]
+0 move[robot4,section-e,section-d]
+0 move[robot4,storage-area,section-a]
+0 __method_precondition_m_move_split[robot4,section-d,obstacle-area]
+0 move[robot4,section-d,obstacle-area]
+0 move[robot4,section-d,section-e]
+0 move[robot4,section-d,section-c]
+0 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+0 move[robot4,maintenance-bay,section-a]
+0 move[robot4,maintenance-bay,storage-area]
+0 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+0 move[robot4,section-a,maintenance-bay]
+0 __method_precondition_m_move_split[robot4,obstacle-area,section-d]
+0 move[robot4,obstacle-area,section-d]
+0 move[robot4,obstacle-area,section-b]
+0 move[robot4,section-c,section-d]
+0 move[robot4,section-c,section-b]
+0 __method_precondition_m_move_split[robot4,section-b,section-a]
+0 move[robot4,section-b,section-a]
+0 move[robot4,section-a,section-b]
+0 move[robot4,section-a,storage-area]
+0 move[robot4,section-b,section-c]
+0 __method_precondition_m_move_split[robot4,section-b,obstacle-area]
+0 move[robot4,section-b,obstacle-area]
+0 __method_precondition_m_handle-blocked_split[robot4,section-b,obstacle-area]
+0 assign-robot|instance_1[pkg3,robot4]
+0 assign-robot|instance_5[pkg3,robot4]
+0 schedule-maintenance[robot4]
+0 mark-robot-available[robot4]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot4,section-c,section-c]
+0 pickup-package|instance_1[robot4,pkg3,section-c]
+0 pickup-package|instance_5[robot4,pkg3,section-c]
+0 dropoff-package[robot4,pkg7,loading-dock]
+0 assign-robot|instance_5[pkg7,robot4]
+0 __method_precondition_m_deliver-one-package|instance_5[pkg7,robot4,section-c,loading-dock]
+0 pickup-package|instance_5[robot4,pkg7,section-c]
+0 __method_precondition_m_deliver-one-package|instance_5[pkg7,robot4,loading-dock,loading-dock]
+0 pickup-package|instance_5[robot4,pkg7,loading-dock]
+0 dropoff-package[robot2,pkg5,loading-dock]
+0 assign-robot|instance_3[pkg5,robot2]
+0 __method_precondition_m_deliver-one-package|instance_3[pkg5,robot2,loading-dock,loading-dock]
+0 pickup-package|instance_3[robot2,pkg5,loading-dock]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot3,section-c,section-c]
+0 dropoff-package[robot3,pkg3,section-c]
+0 pickup-package|instance_1[robot3,pkg3,section-c]
+0 pickup-package|instance_2[robot3,pkg3,section-c]
+0 pickup-package|instance_3[robot3,pkg3,section-c]
+0 pickup-package|instance_4[robot3,pkg3,section-c]
+0 __method_precondition_m_move-done[robot3,section-c]
+0 __method_precondition_m_move_split[robot3,storage-area,section-a]
+0 move[robot3,storage-area,section-a]
+0 __method_precondition_m_move_split[robot3,section-a,storage-area]
+0 move[robot3,section-a,storage-area]
+0 __method_precondition_m_move_split[robot3,loading-dock,section-e]
+0 move[robot3,loading-dock,section-e]
+0 __method_precondition_m_move_split[robot3,maintenance-bay,section-a]
+0 move[robot3,maintenance-bay,section-a]
+0 move[robot3,maintenance-bay,storage-area]
+0 move[robot3,section-a,section-b]
+0 move[robot3,section-a,maintenance-bay]
+0 move[robot3,storage-area,maintenance-bay]
+0 move[robot3,section-c,section-b]
+0 __method_precondition_m_move_split[robot3,section-b,section-a]
+0 move[robot3,section-b,section-a]
+0 move[robot3,section-c,section-d]
+0 move[robot3,section-b,section-c]
+0 __method_precondition_m_move_split[robot3,section-b,obstacle-area]
+0 move[robot3,section-b,obstacle-area]
+0 __method_precondition_m_move_split[robot3,section-d,obstacle-area]
+0 move[robot3,section-d,obstacle-area]
+0 move[robot3,section-d,section-e]
+0 __method_precondition_m_move_split[robot3,section-e,section-d]
+0 move[robot3,section-e,section-d]
+0 move[robot3,section-e,loading-dock]
+0 move[robot3,section-d,section-c]
+0 __method_precondition_m_move_split[robot3,obstacle-area,section-d]
+0 move[robot3,obstacle-area,section-d]
+0 move[robot3,obstacle-area,section-b]
+0 __method_precondition_m_handle-blocked_split[robot3,section-b,obstacle-area]
+0 assign-robot|instance_1[pkg3,robot3]
+0 assign-robot|instance_2[pkg3,robot3]
+0 assign-robot|instance_3[pkg3,robot3]
+0 assign-robot|instance_4[pkg3,robot3]
+0 schedule-maintenance[robot3]
+0 mark-robot-available[robot3]
+0 dropoff-package[robot3,pkg4,loading-dock]
+0 assign-robot|instance_2[pkg4,robot3]
+0 assign-robot|instance_4[pkg4,robot3]
+0 dropoff-package[robot3,pkg5,loading-dock]
+0 assign-robot|instance_3[pkg5,robot3]
+0 assign-robot|instance_4[pkg5,robot3]
+0 __method_precondition_m_deliver-one-package|instance_2[pkg4,robot3,loading-dock,loading-dock]
+0 pickup-package|instance_2[robot3,pkg4,loading-dock]
+0 pickup-package|instance_4[robot3,pkg4,loading-dock]
+0 __method_precondition_m_deliver-one-package|instance_3[pkg5,robot3,loading-dock,loading-dock]
+0 pickup-package|instance_3[robot3,pkg5,loading-dock]
+0 pickup-package|instance_4[robot3,pkg5,loading-dock]
+0 dropoff-package[robot1,pkg1,section-a]
+0 __method_precondition_m_move-done[robot1,section-a]
+0 move[robot1,section-a,storage-area]
+0 __method_precondition_m_move_split[robot1,section-b,obstacle-area]
+0 move[robot1,section-b,obstacle-area]
+0 __method_precondition_m_move_split[robot1,section-b,section-c]
+0 move[robot1,section-b,section-c]
+0 move[robot1,section-b,section-a]
+0 move[robot1,section-a,section-b]
+0 move[robot1,section-a,maintenance-bay]
+0 __method_precondition_m_move_split[robot1,loading-dock,section-e]
+0 move[robot1,loading-dock,section-e]
+0 __method_precondition_m_move_split[robot1,section-d,section-c]
+0 move[robot1,section-d,section-c]
+0 move[robot1,section-d,section-e]
+0 move[robot1,section-d,obstacle-area]
+0 __method_precondition_m_move_split[robot1,section-e,loading-dock]
+0 move[robot1,section-e,loading-dock]
+0 move[robot1,section-e,section-d]
+0 __method_precondition_m_move_split[robot1,section-c,section-b]
+0 move[robot1,section-c,section-b]
+0 __method_precondition_m_move_split[robot1,obstacle-area,section-d]
+0 move[robot1,obstacle-area,section-d]
+0 move[robot1,obstacle-area,section-b]
+0 move[robot1,section-c,section-d]
+0 __method_precondition_m_move_split[robot1,storage-area,section-a]
+0 move[robot1,storage-area,section-a]
+0 move[robot1,storage-area,maintenance-bay]
+0 __method_precondition_m_move_split[robot1,maintenance-bay,storage-area]
+0 move[robot1,maintenance-bay,storage-area]
+0 move[robot1,maintenance-bay,section-a]
+0 __method_precondition_m_handle-blocked_split[robot1,section-b,obstacle-area]
+0 assign-robot|instance_1[pkg1,robot1]
+0 assign-robot|instance_2[pkg1,robot1]
+0 schedule-maintenance[robot1]
+0 mark-robot-available[robot1]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot1,storage-area,section-a]
+0 pickup-package|instance_1[robot1,pkg1,storage-area]
+0 pickup-package|instance_2[robot1,pkg1,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot1,section-a,section-a]
+0 pickup-package|instance_1[robot1,pkg1,section-a]
+0 pickup-package|instance_2[robot1,pkg1,section-a]
+0 __method_precondition_m_deliver-one-package|instance_2[pkg4,robot3,section-d,loading-dock]
+0 pickup-package|instance_2[robot3,pkg4,section-d]
+0 pickup-package|instance_4[robot3,pkg4,section-d]
+0 __method_precondition_m_deliver-one-package|instance_3[pkg5,robot3,section-e,loading-dock]
+0 pickup-package|instance_3[robot3,pkg5,section-e]
+0 pickup-package|instance_4[robot3,pkg5,section-e]
+0 dropoff-package[robot3,pkg1,section-a]
+0 assign-robot|instance_1[pkg1,robot3]
+0 assign-robot|instance_2[pkg1,robot3]
+0 assign-robot|instance_3[pkg1,robot3]
+0 assign-robot|instance_4[pkg1,robot3]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot3,section-a,section-a]
+0 pickup-package|instance_1[robot3,pkg1,section-a]
+0 pickup-package|instance_2[robot3,pkg1,section-a]
+0 pickup-package|instance_3[robot3,pkg1,section-a]
+0 pickup-package|instance_4[robot3,pkg1,section-a]
+0 dropoff-package[robot1,pkg4,loading-dock]
+0 assign-robot|instance_2[pkg4,robot1]
+0 __method_precondition_m_deliver-one-package|instance_2[pkg4,robot1,loading-dock,loading-dock]
+0 pickup-package|instance_2[robot1,pkg4,loading-dock]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot3,storage-area,section-a]
+0 pickup-package|instance_1[robot3,pkg1,storage-area]
+0 pickup-package|instance_2[robot3,pkg1,storage-area]
+0 pickup-package|instance_3[robot3,pkg1,storage-area]
+0 pickup-package|instance_4[robot3,pkg1,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot3,storage-area,section-c]
+0 pickup-package|instance_1[robot3,pkg3,storage-area]
+0 pickup-package|instance_2[robot3,pkg3,storage-area]
+0 pickup-package|instance_3[robot3,pkg3,storage-area]
+0 pickup-package|instance_4[robot3,pkg3,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot4,storage-area,section-c]
+0 pickup-package|instance_1[robot4,pkg3,storage-area]
+0 pickup-package|instance_5[robot4,pkg3,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_2[pkg4,robot1,section-d,loading-dock]
+0 pickup-package|instance_2[robot1,pkg4,section-d]
+0 dropoff-package[robot4,pkg1,section-a]
+0 assign-robot|instance_1[pkg1,robot4]
+0 assign-robot|instance_5[pkg1,robot4]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot4,storage-area,section-a]
+0 pickup-package|instance_1[robot4,pkg1,storage-area]
+0 pickup-package|instance_5[robot4,pkg1,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot4,section-a,section-a]
+0 pickup-package|instance_1[robot4,pkg1,section-a]
+0 pickup-package|instance_5[robot4,pkg1,section-a]
+0 dropoff-package[robot1,pkg3,section-c]
+0 assign-robot|instance_1[pkg3,robot1]
+0 assign-robot|instance_2[pkg3,robot1]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot1,storage-area,section-c]
+0 pickup-package|instance_1[robot1,pkg3,storage-area]
+0 pickup-package|instance_2[robot1,pkg3,storage-area]
+0 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot1,section-c,section-c]
+0 pickup-package|instance_1[robot1,pkg3,section-c]
+0 pickup-package|instance_2[robot1,pkg3,section-c]
+0 __method_precondition_m_deliver-one-package|instance_3[pkg5,robot2,section-e,loading-dock]
+0 pickup-package|instance_3[robot2,pkg5,section-e]
+0 dropoff-package[robot2,pkg2,section-b]
+0 assign-robot|instance_1[pkg2,robot2]
+0 assign-robot|instance_3[pkg2,robot2]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot2,section-b,section-b]
+0 pickup-package|instance_1[robot2,pkg2,section-b]
+0 pickup-package|instance_3[robot2,pkg2,section-b]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot1,section-b,section-b]
+0 dropoff-package[robot1,pkg2,section-b]
+0 pickup-package|instance_1[robot1,pkg2,section-b]
+0 pickup-package|instance_2[robot1,pkg2,section-b]
+0 assign-robot|instance_1[pkg2,robot1]
+0 assign-robot|instance_2[pkg2,robot1]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot2,storage-area,section-b]
+0 pickup-package|instance_1[robot2,pkg2,storage-area]
+0 pickup-package|instance_3[robot2,pkg2,storage-area]
+0 dropoff-package[robot4,pkg6,loading-dock]
+0 assign-robot|instance_1[pkg6,robot4]
+0 assign-robot|instance_5[pkg6,robot4]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot4,loading-dock,loading-dock]
+0 pickup-package|instance_1[robot4,pkg6,loading-dock]
+0 pickup-package|instance_5[robot4,pkg6,loading-dock]
+0 dropoff-package[robot2,pkg6,loading-dock]
+0 assign-robot|instance_1[pkg6,robot2]
+0 assign-robot|instance_3[pkg6,robot2]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot2,storage-area,loading-dock]
+0 pickup-package|instance_1[robot2,pkg6,storage-area]
+0 pickup-package|instance_3[robot2,pkg6,storage-area]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot2,loading-dock,loading-dock]
+0 pickup-package|instance_1[robot2,pkg6,loading-dock]
+0 pickup-package|instance_3[robot2,pkg6,loading-dock]
+0 dropoff-package[robot3,pkg6,loading-dock]
+0 assign-robot|instance_1[pkg6,robot3]
+0 assign-robot|instance_2[pkg6,robot3]
+0 assign-robot|instance_3[pkg6,robot3]
+0 assign-robot|instance_4[pkg6,robot3]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot3,loading-dock,loading-dock]
+0 pickup-package|instance_1[robot3,pkg6,loading-dock]
+0 pickup-package|instance_2[robot3,pkg6,loading-dock]
+0 pickup-package|instance_3[robot3,pkg6,loading-dock]
+0 pickup-package|instance_4[robot3,pkg6,loading-dock]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot1,storage-area,section-b]
+0 pickup-package|instance_1[robot1,pkg2,storage-area]
+0 pickup-package|instance_2[robot1,pkg2,storage-area]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot1,storage-area,loading-dock]
+0 dropoff-package[robot1,pkg6,loading-dock]
+0 pickup-package|instance_1[robot1,pkg6,storage-area]
+0 pickup-package|instance_2[robot1,pkg6,storage-area]
+0 assign-robot|instance_1[pkg6,robot1]
+0 assign-robot|instance_2[pkg6,robot1]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot1,loading-dock,loading-dock]
+0 pickup-package|instance_1[robot1,pkg6,loading-dock]
+0 pickup-package|instance_2[robot1,pkg6,loading-dock]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot3,storage-area,loading-dock]
+0 pickup-package|instance_1[robot3,pkg6,storage-area]
+0 pickup-package|instance_2[robot3,pkg6,storage-area]
+0 pickup-package|instance_3[robot3,pkg6,storage-area]
+0 pickup-package|instance_4[robot3,pkg6,storage-area]
+0 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot4,storage-area,loading-dock]
+0 pickup-package|instance_1[robot4,pkg6,storage-area]
+0 pickup-package|instance_5[robot4,pkg6,storage-area]
+0 dropoff-package[robot3,pkg2,section-b]
+0 assign-robot|instance_1[pkg2,robot3]
+0 assign-robot|instance_2[pkg2,robot3]
+0 assign-robot|instance_3[pkg2,robot3]
+0 assign-robot|instance_4[pkg2,robot3]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot3,storage-area,section-b]
+0 pickup-package|instance_1[robot3,pkg2,storage-area]
+0 pickup-package|instance_2[robot3,pkg2,storage-area]
+0 pickup-package|instance_3[robot3,pkg2,storage-area]
+0 pickup-package|instance_4[robot3,pkg2,storage-area]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot3,section-b,section-b]
+0 pickup-package|instance_1[robot3,pkg2,section-b]
+0 pickup-package|instance_2[robot3,pkg2,section-b]
+0 pickup-package|instance_3[robot3,pkg2,section-b]
+0 pickup-package|instance_4[robot3,pkg2,section-b]
+0 dropoff-package[robot4,pkg2,section-b]
+0 assign-robot|instance_1[pkg2,robot4]
+0 assign-robot|instance_5[pkg2,robot4]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot4,storage-area,section-b]
+0 pickup-package|instance_1[robot4,pkg2,storage-area]
+0 pickup-package|instance_5[robot4,pkg2,storage-area]
+0 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot4,section-b,section-b]
+0 pickup-package|instance_1[robot4,pkg2,section-b]
+0 pickup-package|instance_5[robot4,pkg2,section-b]
+0 __method_precondition_m_no-maintenance-needed[]
+0 __method_precondition_m_maintenance-needed[robot4]
+0 maintenance-action[robot4]
+0 mark-maintenance-completed[robot4]
+0 __method_precondition_m_maintenance-needed[robot2]
+0 maintenance-action[robot2]
+0 mark-maintenance-completed[robot2]
+0 __method_precondition_m_maintenance-needed[robot1]
+0 maintenance-action[robot1]
+0 mark-maintenance-completed[robot1]
+0 __method_precondition_m_maintenance-needed[robot3]
+0 maintenance-action[robot3]
+0 mark-maintenance-completed[robot3]
+1 __top[]
+1 deliver-packages[]
+1 m_deliver-all_splitted_2[]
+1 choose-package[]
+1 m_choose-regular_splitted_1[]
+1 deliver-one-package[]
+1 __method_precondition_m_deliver-one-package[pkg3,robot2,section-c,section-c]
+1 pickup-package[robot2,pkg3,section-c]
+1 move-to[robot2,section-c]
+1 m_move_splitted_4[robot2]
+1 assign-robot[pkg3,robot2]
+1 move-to[robot2,section-b]
+1 move-to[robot2,section-a]
+1 assign-robot[pkg1,robot2]
+1 __method_precondition_m_deliver-one-package[pkg1,robot2,section-a,section-a]
+1 pickup-package[robot2,pkg1,section-a]
+1 __method_precondition_m_deliver-one-package[pkg1,robot2,storage-area,section-a]
+1 pickup-package[robot2,pkg1,storage-area]
+1 move-to[robot2,storage-area]
+1 __method_precondition_m_deliver-one-package[pkg3,robot2,storage-area,section-c]
+1 pickup-package[robot2,pkg3,storage-area]
+1 move-to[robot4,section-c]
+1 m_move_splitted_4[robot4]
+1 move-to[robot4,maintenance-bay]
+1 assign-robot[pkg3,robot4]
+1 __method_precondition_m_deliver-one-package[pkg3,robot4,section-c,section-c]
+1 pickup-package[robot4,pkg3,section-c]
+1 move-to[robot4,loading-dock]
+1 move-to[robot2,loading-dock]
+1 __method_precondition_m_deliver-one-package[pkg3,robot3,section-c,section-c]
+1 pickup-package[robot3,pkg3,section-c]
+1 move-to[robot3,section-c]
+1 m_move_splitted_4[robot3]
+1 assign-robot[pkg3,robot3]
+1 move-to[robot3,loading-dock]
+1 assign-robot[pkg4,robot3]
+1 assign-robot[pkg5,robot3]
+1 __method_precondition_m_deliver-one-package[pkg4,robot3,loading-dock,loading-dock]
+1 pickup-package[robot3,pkg4,loading-dock]
+1 __method_precondition_m_deliver-one-package[pkg5,robot3,loading-dock,loading-dock]
+1 pickup-package[robot3,pkg5,loading-dock]
+1 move-to[robot2,maintenance-bay]
+1 move-to[robot1,section-a]
+1 m_move_splitted_4[robot1]
+1 move-to[robot1,section-b]
+1 assign-robot[pkg1,robot1]
+1 __method_precondition_m_deliver-one-package[pkg1,robot1,storage-area,section-a]
+1 pickup-package[robot1,pkg1,storage-area]
+1 move-to[robot1,storage-area]
+1 move-to[robot1,maintenance-bay]
+1 __method_precondition_m_deliver-one-package[pkg1,robot1,section-a,section-a]
+1 pickup-package[robot1,pkg1,section-a]
+1 move-to[robot3,section-d]
+1 __method_precondition_m_deliver-one-package[pkg4,robot3,section-d,loading-dock]
+1 pickup-package[robot3,pkg4,section-d]
+1 move-to[robot3,section-e]
+1 __method_precondition_m_deliver-one-package[pkg5,robot3,section-e,loading-dock]
+1 pickup-package[robot3,pkg5,section-e]
+1 move-to[robot3,section-a]
+1 assign-robot[pkg1,robot3]
+1 __method_precondition_m_deliver-one-package[pkg1,robot3,section-a,section-a]
+1 pickup-package[robot3,pkg1,section-a]
+1 move-to[robot1,loading-dock]
+1 __method_precondition_m_deliver-one-package[pkg1,robot3,storage-area,section-a]
+1 pickup-package[robot3,pkg1,storage-area]
+1 move-to[robot3,storage-area]
+1 __method_precondition_m_deliver-one-package[pkg3,robot3,storage-area,section-c]
+1 pickup-package[robot3,pkg3,storage-area]
+1 __method_precondition_m_deliver-one-package[pkg3,robot4,storage-area,section-c]
+1 pickup-package[robot4,pkg3,storage-area]
+1 move-to[robot4,storage-area]
+1 move-to[robot1,section-d]
+1 move-to[robot3,section-b]
+1 move-to[robot3,maintenance-bay]
+1 move-to[robot4,section-a]
+1 assign-robot[pkg1,robot4]
+1 __method_precondition_m_deliver-one-package[pkg1,robot4,storage-area,section-a]
+1 pickup-package[robot4,pkg1,storage-area]
+1 __method_precondition_m_deliver-one-package[pkg1,robot4,section-a,section-a]
+1 pickup-package[robot4,pkg1,section-a]
+1 move-to[robot1,section-c]
+1 assign-robot[pkg3,robot1]
+1 __method_precondition_m_deliver-one-package[pkg3,robot1,storage-area,section-c]
+1 pickup-package[robot1,pkg3,storage-area]
+1 __method_precondition_m_deliver-one-package[pkg3,robot1,section-c,section-c]
+1 pickup-package[robot1,pkg3,section-c]
+1 move-to[robot4,section-b]
+1 move-to[robot2,section-e]
+1 __method_precondition_m_choose-urgent[]
+1 deliver-urgent-package[]
+1 assign-robot[pkg2,robot2]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot2,section-b,section-b]
+1 pickup-package[robot2,pkg2,section-b]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot1,section-b,section-b]
+1 pickup-package[robot1,pkg2,section-b]
+1 assign-robot[pkg2,robot1]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot2,storage-area,section-b]
+1 pickup-package[robot2,pkg2,storage-area]
+1 assign-robot[pkg6,robot4]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot4,loading-dock,loading-dock]
+1 pickup-package[robot4,pkg6,loading-dock]
+1 assign-robot[pkg6,robot2]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot2,storage-area,loading-dock]
+1 pickup-package[robot2,pkg6,storage-area]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot2,loading-dock,loading-dock]
+1 pickup-package[robot2,pkg6,loading-dock]
+1 assign-robot[pkg6,robot3]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot3,loading-dock,loading-dock]
+1 pickup-package[robot3,pkg6,loading-dock]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot1,storage-area,section-b]
+1 pickup-package[robot1,pkg2,storage-area]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot1,storage-area,loading-dock]
+1 pickup-package[robot1,pkg6,storage-area]
+1 assign-robot[pkg6,robot1]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot1,loading-dock,loading-dock]
+1 pickup-package[robot1,pkg6,loading-dock]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot3,storage-area,loading-dock]
+1 pickup-package[robot3,pkg6,storage-area]
+1 __method_precondition_m_deliver-urgent-package[pkg6,robot4,storage-area,loading-dock]
+1 pickup-package[robot4,pkg6,storage-area]
+1 assign-robot[pkg2,robot3]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot3,storage-area,section-b]
+1 pickup-package[robot3,pkg2,storage-area]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot3,section-b,section-b]
+1 pickup-package[robot3,pkg2,section-b]
+1 assign-robot[pkg2,robot4]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot4,storage-area,section-b]
+1 pickup-package[robot4,pkg2,storage-area]
+1 __method_precondition_m_deliver-urgent-package[pkg2,robot4,section-b,section-b]
+1 pickup-package[robot4,pkg2,section-b]
+1 maintenance-check[]
+1 m_maintenance-needed_splitted_3[]
+
+;; initial abstract task
+359
+
+;; methods
+451
+__top_method
+359
+360 -1
+-1
+m_all-delivered
+360
+0 -1
+-1
+m_deliver-all
+360
+361 489 362 360 -1
+0 3 0 2 0 1 2 3 1 2 -1
+_splitting_method_m_deliver-all_splitted_2
+361
+1 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+2 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+3 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+4 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+5 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+6 -1
+-1
+_splitting_method_m_deliver-all_splitted_2
+361
+7 -1
+-1
+m_choose-regular
+362
+363 364 -1
+0 1 -1
+_splitting_method_m_choose-regular_splitted_1
+363
+3 -1
+-1
+_splitting_method_m_choose-regular_splitted_1
+363
+4 -1
+-1
+_splitting_method_m_choose-regular_splitted_1
+363
+1 -1
+-1
+_splitting_method_m_choose-regular_splitted_1
+363
+6 -1
+-1
+_splitting_method_m_choose-regular_splitted_1
+363
+2 -1
+-1
+m_deliver-one-package
+364
+365 369 367 366 367 9 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+365
+8 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+365
+8 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+366
+10 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+366
+11 -1
+-1
+m_move-done
+367
+12 -1
+-1
+m_move
+367
+368 367 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+13 14 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+13 15 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+16 17 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+16 18 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+13 19 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+20 21 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+22 23 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+24 25 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+26 27 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+26 28 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+29 30 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+31 32 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+31 33 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+29 34 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+12 35 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+12 36 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+22 37 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+16 38 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+39 40 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+368
+39 41 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+367
+42 43 44 367 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+369
+45 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+369
+46 -1
+-1
+m_move-done
+370
+26 -1
+-1
+m_move
+370
+368 370 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+370
+42 43 44 370 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+371
+13 -1
+-1
+m_move
+371
+368 371 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+371
+42 43 44 371 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+372
+50 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+372
+51 -1
+-1
+m_deliver-one-package
+364
+373 372 371 374 371 49 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+373
+52 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+373
+52 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+374
+53 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+374
+54 -1
+-1
+m_deliver-one-package
+364
+375 372 377 376 371 49 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+375
+55 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+375
+55 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+376
+56 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+376
+57 -1
+-1
+m_move-done
+377
+29 -1
+-1
+m_move
+377
+368 377 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+377
+42 43 44 377 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_deliver-one-package
+364
+378 369 377 379 367 9 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+378
+58 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+378
+58 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+379
+59 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+379
+60 -1
+-1
+m_move-done
+380
+62 -1
+-1
+m_move
+380
+381 380 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+63 64 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+65 66 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+67 68 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+67 69 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+65 70 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+71 72 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+71 73 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+71 74 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+75 76 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+75 77 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+78 79 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+80 81 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+80 82 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+62 83 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+62 84 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+85 86 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+78 87 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+78 88 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+85 89 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+381
+90 91 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+380
+92 43 44 380 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+382
+75 -1
+-1
+m_move
+382
+381 382 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+382
+92 43 44 382 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+383
+93 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_5
+383
+94 -1
+-1
+m_deliver-one-package
+364
+384 383 380 385 380 61 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+384
+97 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5
+384
+97 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+385
+98 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+385
+99 -1
+-1
+m_move-done
+386
+63 -1
+-1
+m_move
+386
+381 386 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+386
+92 43 44 386 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+<<<m_deliver-one-package;assign-robot[pkg7,robot4];_method_for_multiple_expansions_of_assign-robot|instance_5;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg7,robot4,section-c,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5;0;-1,1,2,3,4,5,6,7>;pickup-package[robot4,pkg7,section-c];_method_for_multiple_expansions_of_pickup-package|instance_5;3;0,1,2,-1,4,5,6,7>
+364
+102 101 380 103 386 100 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+<<<m_deliver-one-package;assign-robot[pkg7,robot4];_method_for_multiple_expansions_of_assign-robot|instance_5;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg7,robot4,loading-dock,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5;0;-1,1,2,3,4,5,6,7>;pickup-package[robot4,pkg7,loading-dock];_method_for_multiple_expansions_of_pickup-package|instance_5;3;0,1,2,-1,4,5,6,7>
+364
+104 101 386 105 386 100 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+m_move-done
+387
+20 -1
+-1
+m_move
+387
+368 387 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+387
+42 43 44 387 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+<<<m_deliver-one-package;assign-robot[pkg5,robot2];_method_for_multiple_expansions_of_assign-robot|instance_3;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg5,robot2,loading-dock,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3;0;-1,1,2,3,4,5,6,7>;pickup-package[robot2,pkg5,loading-dock];_method_for_multiple_expansions_of_pickup-package|instance_3;3;0,1,2,-1,4,5,6,7>
+364
+108 107 387 109 387 106 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+m_deliver-one-package
+364
+388 392 390 389 390 111 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+388
+110 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+388
+110 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+388
+110 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+388
+110 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+389
+112 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+389
+113 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+389
+114 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+389
+115 -1
+-1
+m_move-done
+390
+116 -1
+-1
+m_move
+390
+391 390 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+117 118 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+119 120 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+121 122 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+123 124 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+123 125 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+119 126 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+119 127 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+117 128 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+116 129 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+130 131 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+116 132 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+130 133 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+134 135 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+136 137 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+136 138 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+139 140 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+139 141 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+136 142 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+143 144 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+391
+143 145 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+390
+146 43 44 390 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+392
+147 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+392
+148 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+392
+149 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+392
+150 -1
+-1
+m_move-done
+393
+121 -1
+-1
+m_move
+393
+391 393 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+393
+146 43 44 393 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+394
+154 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+394
+155 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+395
+157 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+395
+158 -1
+-1
+m_deliver-one-package
+364
+396 394 393 397 393 153 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+396
+159 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+396
+159 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+397
+160 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+397
+161 -1
+-1
+m_deliver-one-package
+364
+398 395 393 399 393 156 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+398
+162 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+398
+162 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+399
+163 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+399
+164 -1
+-1
+m_move-done
+400
+39 -1
+-1
+m_move
+400
+368 400 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+400
+42 43 44 400 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+401
+166 -1
+-1
+m_move
+401
+402 401 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+166 167 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+168 169 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+170 171 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+170 172 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+166 173 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+166 174 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+175 176 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+177 178 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+177 179 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+177 180 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+181 182 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+181 183 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+184 185 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+186 187 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+186 188 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+184 189 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+190 191 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+190 192 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+193 194 -1
+0 1 -1
+_splitting_method_m_move_splitted_4
+402
+193 195 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+401
+196 43 44 401 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+403
+170 -1
+-1
+m_move
+403
+402 403 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+403
+196 43 44 403 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+404
+197 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+404
+198 -1
+-1
+m_deliver-one-package
+364
+405 404 407 406 401 165 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+405
+201 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+405
+201 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+406
+202 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+406
+203 -1
+-1
+m_move-done
+407
+190 -1
+-1
+m_move
+407
+402 407 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+407
+196 43 44 407 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+408
+193 -1
+-1
+m_move
+408
+402 408 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+408
+196 43 44 408 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_deliver-one-package
+364
+409 404 401 410 401 165 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+409
+204 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+409
+204 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+410
+205 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+410
+206 -1
+-1
+m_move-done
+411
+136 -1
+-1
+m_move
+411
+391 411 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+411
+146 43 44 411 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_deliver-one-package
+364
+412 394 411 413 393 153 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+412
+207 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+412
+207 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+413
+208 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+413
+209 -1
+-1
+m_move-done
+414
+139 -1
+-1
+m_move
+414
+391 414 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+414
+146 43 44 414 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_deliver-one-package
+364
+415 395 414 416 393 156 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+415
+210 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+415
+210 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+416
+211 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+416
+212 -1
+-1
+m_move-done
+417
+119 -1
+-1
+m_move
+417
+391 417 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+417
+146 43 44 417 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+418
+214 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+418
+215 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+418
+216 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+418
+217 -1
+-1
+m_deliver-one-package
+364
+419 418 417 420 417 213 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+419
+218 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+419
+218 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+419
+218 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+419
+218 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+420
+219 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+420
+220 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+420
+221 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+420
+222 -1
+-1
+m_move-done
+421
+175 -1
+-1
+m_move
+421
+402 421 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+421
+196 43 44 421 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+<<<m_deliver-one-package;assign-robot[pkg4,robot1];_method_for_multiple_expansions_of_assign-robot|instance_2;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg4,robot1,loading-dock,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2;0;-1,1,2,3,4,5,6,7>;pickup-package[robot1,pkg4,loading-dock];_method_for_multiple_expansions_of_pickup-package|instance_2;3;0,1,2,-1,4,5,6,7>
+364
+225 224 421 226 421 223 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+m_deliver-one-package
+364
+422 418 424 423 417 213 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+422
+227 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+422
+227 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+422
+227 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+422
+227 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+423
+228 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+423
+229 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+423
+230 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+423
+231 -1
+-1
+m_move-done
+424
+117 -1
+-1
+m_move
+424
+391 424 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+424
+146 43 44 424 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_deliver-one-package
+364
+425 392 424 426 390 111 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+425
+232 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+425
+232 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3
+425
+232 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_4
+425
+232 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+426
+233 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+426
+234 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+426
+235 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+426
+236 -1
+-1
+m_deliver-one-package
+364
+427 383 429 428 380 61 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+427
+237 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5
+427
+237 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+428
+238 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+428
+239 -1
+-1
+m_move-done
+429
+65 -1
+-1
+m_move
+429
+381 429 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+429
+92 43 44 429 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+430
+177 -1
+-1
+m_move
+430
+402 430 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+430
+196 43 44 430 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+<<<m_deliver-one-package;assign-robot[pkg4,robot1];_method_for_multiple_expansions_of_assign-robot|instance_2;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg4,robot1,section-d,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2;0;-1,1,2,3,4,5,6,7>;pickup-package[robot1,pkg4,section-d];_method_for_multiple_expansions_of_pickup-package|instance_2;3;0,1,2,-1,4,5,6,7>
+364
+240 224 430 241 421 223 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+m_move-done
+431
+130 -1
+-1
+m_move
+431
+391 431 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+431
+146 43 44 431 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+432
+123 -1
+-1
+m_move
+432
+391 432 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot3];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+432
+146 43 44 432 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+433
+78 -1
+-1
+m_move
+433
+381 433 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+433
+92 43 44 433 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+434
+243 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_5
+434
+244 -1
+-1
+m_deliver-one-package
+364
+435 434 429 436 433 242 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+435
+245 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5
+435
+245 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+436
+246 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+436
+247 -1
+-1
+m_deliver-one-package
+364
+437 434 433 438 433 242 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+437
+248 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5
+437
+248 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+438
+249 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+438
+250 -1
+-1
+m_move-done
+439
+184 -1
+-1
+m_move
+439
+402 439 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot1];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+439
+196 43 44 439 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+440
+252 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+440
+253 -1
+-1
+m_deliver-one-package
+364
+441 440 407 442 439 251 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+441
+254 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+441
+254 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+442
+255 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+442
+256 -1
+-1
+m_deliver-one-package
+364
+443 440 439 444 439 251 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1
+443
+257 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2
+443
+257 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+444
+258 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+444
+259 -1
+-1
+m_move-done
+445
+85 -1
+-1
+m_move
+445
+381 445 -1
+0 1 -1
+<m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1>
+445
+92 43 44 445 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+m_move-done
+446
+22 -1
+-1
+m_move
+446
+368 446 -1
+0 1 -1
+<<m_handle-blocked;m_handle-blocked_splitted_5[robot2];_splitting_method_m_handle-blocked_splitted_5;0;-1,-2,1>;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2,2>
+446
+42 43 44 446 -1
+0 3 0 1 0 2 1 3 1 2 2 3 -1
+<<<m_deliver-one-package;assign-robot[pkg5,robot2];_method_for_multiple_expansions_of_assign-robot|instance_3;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg5,robot2,section-e,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3;0;-1,1,2,3,4,5,6,7>;pickup-package[robot2,pkg5,section-e];_method_for_multiple_expansions_of_pickup-package|instance_3;3;0,1,2,-1,4,5,6,7>
+364
+260 107 446 261 387 106 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+m_choose-urgent
+362
+447 448 -1
+0 1 -1
+_method_for_multiple_expansions_of___method_precondition_m_choose-urgent|instance_1
+447
+5 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_choose-urgent|instance_2
+447
+7 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+449
+263 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+449
+264 -1
+-1
+m_deliver-urgent-package
+448
+450 449 370 451 370 262 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+450
+265 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_5
+450
+265 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+451
+266 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+451
+267 -1
+-1
+m_deliver-urgent-package
+448
+452 454 403 453 403 269 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+452
+268 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_3
+452
+268 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+453
+270 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+453
+271 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+454
+272 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+454
+273 -1
+-1
+m_deliver-urgent-package
+448
+455 449 377 456 370 262 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+455
+274 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_5
+455
+274 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+456
+275 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+456
+276 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+457
+278 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_5
+457
+279 -1
+-1
+m_deliver-urgent-package
+448
+458 457 386 459 386 277 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+458
+280 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_10
+458
+280 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+459
+281 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+459
+282 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+460
+284 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+460
+285 -1
+-1
+m_deliver-urgent-package
+448
+461 460 377 462 387 283 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+461
+286 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_6
+461
+286 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+462
+287 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+462
+288 -1
+-1
+m_deliver-urgent-package
+448
+463 460 387 464 387 283 48 47 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+463
+289 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_6
+463
+289 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+464
+290 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+464
+291 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+465
+293 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+465
+294 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+465
+295 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+465
+296 -1
+-1
+m_deliver-urgent-package
+448
+466 465 393 467 393 292 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+466
+297 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_4
+466
+297 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_6
+466
+297 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_8
+466
+297 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+467
+298 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+467
+299 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+467
+300 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+467
+301 -1
+-1
+m_deliver-urgent-package
+448
+468 454 407 469 403 269 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+468
+302 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_3
+468
+302 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+469
+303 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+469
+304 -1
+-1
+m_deliver-urgent-package
+448
+470 472 407 471 421 306 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+470
+305 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_4
+470
+305 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+471
+307 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+471
+308 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+472
+309 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+472
+310 -1
+-1
+m_deliver-urgent-package
+448
+473 472 421 474 421 306 200 199 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+473
+311 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_4
+473
+311 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+474
+312 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+474
+313 -1
+-1
+m_deliver-urgent-package
+448
+475 465 424 476 393 292 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+475
+314 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_4
+475
+314 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_6
+475
+314 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_8
+475
+314 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+476
+315 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+476
+316 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+476
+317 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+476
+318 -1
+-1
+m_deliver-urgent-package
+448
+477 457 429 478 386 277 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2
+477
+319 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_10
+477
+319 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+478
+320 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+478
+321 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+479
+323 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_2
+479
+324 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_3
+479
+325 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_4
+479
+326 -1
+-1
+m_deliver-urgent-package
+448
+480 479 424 481 431 322 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+480
+327 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_3
+480
+327 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_5
+480
+327 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_7
+480
+327 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+481
+328 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+481
+329 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+481
+330 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+481
+331 -1
+-1
+m_deliver-urgent-package
+448
+482 479 431 483 431 322 152 151 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+482
+332 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_3
+482
+332 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_5
+482
+332 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_7
+482
+332 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+483
+333 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_2
+483
+334 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_3
+483
+335 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_4
+483
+336 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_1
+484
+338 -1
+-1
+_method_for_multiple_expansions_of_assign-robot|instance_5
+484
+339 -1
+-1
+m_deliver-urgent-package
+448
+485 484 429 486 445 337 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+485
+340 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_9
+485
+340 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+486
+341 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+486
+342 -1
+-1
+m_deliver-urgent-package
+448
+487 484 445 488 445 337 96 95 -1
+0 5 0 3 0 4 0 2 0 1 0 7 0 6 5 6 3 4 4 5 2 3 1 2 6 7 -1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1
+487
+343 -1
+-1
+_method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_9
+487
+343 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_1
+488
+344 -1
+-1
+_method_for_multiple_expansions_of_pickup-package|instance_5
+488
+345 -1
+-1
+m_no-maintenance-needed
+489
+346 -1
+-1
+m_maintenance-needed
+489
+490 489 -1
+0 1 -1
+<<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4>
+490
+347 347 382 348 349 -1
+0 3 0 1 0 2 0 4 3 4 1 3 1 2 1 4 2 3 -1
+<<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot2];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot2];m_select-robot-for-maintenance;1;0,-1,2,3,4>
+490
+350 350 400 351 352 -1
+0 3 0 1 0 2 0 4 3 4 1 3 1 2 1 4 2 3 -1
+<<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot1];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot1];m_select-robot-for-maintenance;1;0,-1,2,3,4>
+490
+353 353 408 354 355 -1
+0 3 0 1 0 2 0 4 3 4 1 3 1 2 1 4 2 3 -1
+<<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot3];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot3];m_select-robot-for-maintenance;1;0,-1,2,3,4>
+490
+356 356 432 357 358 -1
+0 3 0 1 0 2 0 4 3 4 1 3 1 2 1 4 2 3 -1

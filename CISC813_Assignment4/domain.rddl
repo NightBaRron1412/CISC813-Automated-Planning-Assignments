@@ -1,0 +1,136 @@
+///////////////////////////////////////////////////////////////////////////////
+// Domain: epidemic_control
+// Description: This domain models the spread of an epidemic across multiple regions
+//              while incorporating various control measures such as movement restrictions,
+//              vaccination strategies, hospital capacity management, and regional 
+//              interconnections. The goal is to manage the epidemic spread and hospital
+//              resources optimally while minimizing the negative impact on the population.
+// 
+// Course: CISC813 - Automated Planning
+// Assignment 4
+// Author: Amir Shetaia
+// Email: a.shetaia@queensu.ca
+///////////////////////////////////////////////////////////////////////////////
+
+domain epidemic_control {
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Types: Define the objects used within the domain, which in this case 
+    //        include regions and hospitals.
+    ///////////////////////////////////////////////////////////////////////////
+    types {
+        region: object;        // Represents geographical regions where the epidemic spreads
+        hospital: object;      // Represents hospitals that serve the population in each region
+    };
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Pvariables: Defines the problem variables such as non-fluents, state-fluents,
+    //             action-fluents, and intermediate-fluents used in the domain.
+    ///////////////////////////////////////////////////////////////////////////
+    pvariables {
+        // Non-fluents: Constants that do not change during the problem horizon.
+        ADJACENT(region, region): { non-fluent, bool, default = false }; // Indicates if two regions are connected (can spread disease)
+        HOSPITAL_CAPACITY(hospital): { non-fluent, real, default = 100.0 }; // Maximum base capacity for each hospital
+        HOSPITAL_REGION(hospital, region): { non-fluent, bool, default = false }; // Maps hospitals to their respective regions
+        POPULATION(region): { non-fluent, real, default = 10000.0 }; // Total population of each region
+        
+        // State-fluents: Variables that represent the evolving state of the world.
+        susceptible(region): { state-fluent, real, default = 9900.0 }; // Number of susceptible individuals in the region
+        infected(region): { state-fluent, real, default = 100.0 }; // Number of currently infected individuals
+        recovered(region): { state-fluent, real, default = 0.0 }; // Number of recovered individuals
+        vaccinated(region): { state-fluent, real, default = 0.0 }; // Number of vaccinated individuals
+        hospitalized(hospital): { state-fluent, real, default = 0.0 }; // Number of patients currently hospitalized
+        
+        // Action-fluents: Actions available to control the epidemic spread.
+        vaccinate(region): { action-fluent, real, default = 0.0 }; // Vaccination rate applied in the region
+        restrict_movement(region): { action-fluent, bool, default = false }; // Whether movement is restricted in the region
+        add_hospital_beds(hospital): { action-fluent, real, default = 0.0 }; // Adding additional capacity to hospitals
+        
+        // Intermediate-fluents: Computed values based on state and actions.
+        infection_rate(region): { interm-fluent, real }; // Infection rate for the region, influenced by the number of infected and movement restrictions
+        hospital_load(hospital): { interm-fluent, real }; // Load on hospitals, i.e., ratio of patients to capacity
+        regional_hospital_capacity(region): { interm-fluent, real }; // Total hospital capacity available in a region
+    };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // CPFs (Conditional Probability Functions): Define how the state of the 
+    //                                           world changes based on the 
+    //                                           current state and actions.
+    ///////////////////////////////////////////////////////////////////////////
+    cpfs {
+        // Calculate infection rate based on the number of infected and whether movement is restricted.
+        infection_rate(?r) = 0.3 * infected(?r) / POPULATION(?r) * 
+                            if (restrict_movement(?r))
+                                then 0.5  // Movement restrictions reduce infection rate
+                                else 1.0; // No restrictions, full infection rate
+
+        // Total hospital capacity for a region is the sum of all hospitals in the region, including any added beds.
+        regional_hospital_capacity(?r) = sum_{?h: hospital} [
+            HOSPITAL_REGION(?h, ?r) * (HOSPITAL_CAPACITY(?h) + add_hospital_beds(?h))
+        ];
+
+        // Hospital load as a ratio of patients to total capacity (including added beds).
+        hospital_load(?h) = hospitalized(?h) / (HOSPITAL_CAPACITY(?h) + add_hospital_beds(?h));
+
+        // Susceptible population decreases due to new infections and vaccinations.
+        susceptible'(?r) = max[0, susceptible(?r) - 
+                      (infection_rate(?r) * susceptible(?r)) - // Infection reduces susceptible population
+                      vaccinate(?r)]; // Vaccination reduces susceptible population
+        
+        // Infected population is updated based on new infections, recovery, and hospitalization.
+        infected'(?r) = max[0, infected(?r) +
+                   (infection_rate(?r) * susceptible(?r)) - // New infections
+                   (0.1 * infected(?r)) -    // Natural recovery rate
+                   (0.05 * infected(?r))];   // Hospitalization rate
+        
+        // Recovered population increases from natural recovery and hospital discharges.
+        recovered'(?r) = max[0, recovered(?r) +
+                    (0.1 * infected(?r)) +   // Natural recovery
+                    (0.2 * sum_{?h: hospital} [  // Hospital recovery rate
+                        if (HOSPITAL_REGION(?h, ?r))
+                            then hospitalized(?h)
+                            else 0.0
+                    ])];
+
+        // Vaccinated population increases based on vaccination efforts.
+        vaccinated'(?r) = max[0, vaccinated(?r) + vaccinate(?r)];
+
+        // Hospital occupancy is updated based on new hospitalizations and discharges.
+        hospitalized'(?h) = max[0, min[(HOSPITAL_CAPACITY(?h) + add_hospital_beds(?h)), // Capacity constraint
+                               hospitalized(?h) +
+                               sum_{?r: region} [ // Sum of hospitalizations from regions served by the hospital
+                                   if (HOSPITAL_REGION(?h, ?r))
+                                       then (0.05 * infected(?r)) // 5% hospitalization rate for infected
+                                       else 0.0
+                               ] -
+                               (0.2 * hospitalized(?h))]];  // Hospital discharge rate
+
+    };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Reward: Defines the objective function to optimize, combining health
+    //         outcomes with the cost of interventions.
+    ///////////////////////////////////////////////////////////////////////////
+    reward = [sum_{?r: region} [-0.1 * infected(?r)]] +                     // Penalty for infections
+             [sum_{?r: region} [-10.0 * if (restrict_movement(?r)) then 1.0 else 0.0]] + // Penalty for movement restrictions
+             [sum_{?h: hospital} [-1.0 * add_hospital_beds(?h)]] +          // Cost of expanding hospital capacity
+             [sum_{?r: region} [-0.5 * vaccinate(?r)]];                     // Cost of vaccination
+
+    ///////////////////////////////////////////////////////////////////////////
+    // State-action constraints: Ensure validity of actions and states.
+    ///////////////////////////////////////////////////////////////////////////
+    state-action-constraints {
+        // Vaccination rates must be non-negative and cannot exceed the susceptible population.
+        forall_{?r: region} [vaccinate(?r) >= 0.0];
+        forall_{?r: region} [vaccinate(?r) <= susceptible(?r)];
+        
+        // Hospital bed expansion must be within limits.
+        forall_{?h: hospital} [add_hospital_beds(?h) >= 0.0];
+        forall_{?h: hospital} [add_hospital_beds(?h) <= 50.0];
+        
+        // Population conservation: Total population must be the sum of susceptible, infected, recovered, and vaccinated individuals.
+        forall_{?r: region} [
+            susceptible(?r) + infected(?r) + recovered(?r) + vaccinated(?r) <= POPULATION(?r)
+        ];
+    };
+}

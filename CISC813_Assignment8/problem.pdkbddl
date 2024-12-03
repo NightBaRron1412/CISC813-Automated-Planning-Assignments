@@ -1,0 +1,196 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Domain: Undercity Intrigue
+; Description: Models intrigue and espionage inspired by the world of
+;              the Netflix show Arcane, specifically the relationships
+;              and dynamics between Jinx, Vi, and Silco in the undercity.
+; Assignment: Epistemic Planning Assignment 8
+; Author: Amir Shetaia
+; Class: CISC813 - Automated Planning
+; Source: Netflix's Arcane Universe
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (domain undercity_intrigue)
+
+    ;;; Agents
+    ;; - jinx, vi, silco: Represents main characters from the Arcane series,
+    ;;   involved in the intrigue and power struggle of the undercity.
+    (:agents jinx vi silco)
+
+    ;;; Types
+    ;; - location: Represents various areas within the undercity of Zaun
+    ;;   as portrayed in the Arcane show.
+    (:types location)
+
+    ;;; Constants
+    ;; - No specific constants are defined in this domain file.
+    (:constants )
+
+    ;;; Predicates
+    ;; - is-traitor: Indicates whether an agent is a traitor.
+    ;; - diff: Ensures that two agents are different.
+    ;; - in: Tracks the location of an agent.
+    ;; - connected: Indicates if two locations are directly connected.
+    (:predicates
+        (is-traitor ?agent) ; Indicates if an agent is a traitor
+        {AK}(diff ?a1 ?a2 - agent) ; Agents ?a1 and ?a2 are distinct
+        {AK}(in ?agent - agent ?location - location) ; Agent ?agent is at location ?location
+        {AK}(connected ?location1 ?location2 - location) ; Locations ?location1 and ?location2 are connected
+    )
+
+    ;;; Actions
+    ;; - These represent the operations agents can perform during intrigue.
+
+    ; Action: sneak
+    ;; - Allows an agent to move stealthily between connected locations.
+    ;; - Preconditions:
+    ;;     - The agent must be in the starting location (?loc1).
+    ;;     - The two locations must be connected.
+    ;; - Effects:
+    ;;     - The agent is moved to the destination location (?loc2).
+    ;;     - The agent is removed from the starting location (?loc1).
+    (:action sneak
+        :derive-condition   always
+        :parameters         (?a - agent ?loc1 ?loc2 - location)
+        :precondition       (and (in ?a ?loc1) (connected ?loc1 ?loc2))
+        :effect             (and
+                                (in ?a ?loc2)
+                                (!in ?a ?loc1)
+                            )
+    )
+
+    ; Action: whisper-loyalty
+    ;; - Allows an agent to communicate their loyalty to another agent in the same location.
+    ;; - Preconditions:
+    ;;     - Both agents must be in the same location (?loc).
+    ;;     - The agents must be different (?a1 != ?a2).
+    ;;     - The whispering agent (?a1) must believe they are not a traitor.
+    ;; - Effects:
+    ;;     - The receiving agent (?a2) updates their belief that ?a1 is not a traitor.
+    ;;     - The belief is also shared between ?a1 and ?a2.
+    (:action whisper-loyalty
+        :derive-condition (in $agent$ ?loc)
+        :parameters (?a1 ?a2 - agent ?loc - location)
+        :precondition (and
+            (diff ?a1 ?a2)
+            (in ?a1 ?loc)
+            (in ?a2 ?loc)
+            [?a1](!is-traitor ?a1)
+        )
+        :effect (and
+            [?a2](!is-traitor ?a1)
+            [?a1][?a2](!is-traitor ?a1)
+        )
+    )
+
+    ; Action: expose-traitor
+    ;; - Allows an agent to expose a traitor if they are certain of their own loyalty and another agent's loyalty.
+    ;; - Preconditions:
+    ;;     - The exposing agent (?a) must be certain they and another agent (?b) are not traitors.
+    ;;     - All three agents involved (?a, ?b, ?c) must be distinct.
+    ;; - Effects:
+    ;;     - The exposing agent (?a) identifies ?c as a traitor.
+    (:action expose-traitor
+        :derive-condition always
+        :parameters (?a - agent ?b - agent ?c - agent)
+        :precondition (and
+            (diff ?a ?b)
+            (diff ?a ?c)
+            (diff ?b ?c)
+            [?a](!is-traitor ?a)
+            [?a](!is-traitor ?b)
+        )
+        :effect (and
+            [?a](is-traitor ?c)
+        )
+    )
+
+)
+
+(define (problem undercity_intrigue_problem)
+
+    ;;; Domain
+    ;; - Specifies the domain file used for this problem instance.
+    (:domain undercity_intrigue)
+
+    ;;; Objects
+    ;; - Defines the locations in the undercity that agents can navigate.
+    (:objects the_last_drop the_lanes piltover_gates factory_woods black_market - location)
+
+    ;;; Task and Projection
+    ;; - Defines the task to be solved and specifies it as a valid generation task.
+    (:projection )
+    (:task valid_generation)
+
+    ;;; Initialization
+    ;; - Specifies the initial state of the problem, including:
+    ;;     - Connected locations.
+    ;;     - Initial positions of the agents.
+    ;;     - Traitorship status of agents.
+    ;;     - Initial beliefs of agents about loyalty.
+    (:init-type complete)
+    (:init
+
+        ; Connected locations
+        (connected the_last_drop the_lanes)
+        (connected the_lanes the_last_drop)
+        (connected the_lanes piltover_gates)
+        (connected piltover_gates the_lanes)
+        (connected piltover_gates factory_woods)
+        (connected factory_woods piltover_gates)
+        (connected factory_woods black_market)
+        (connected black_market factory_woods)
+        (connected black_market the_last_drop)
+        (connected the_last_drop black_market)
+
+        ; Initial positions of the agents
+        (in jinx the_last_drop)
+        (in vi factory_woods)
+        (in silco black_market)
+
+        ; All agents are different
+        (diff jinx vi)
+        (diff jinx silco)
+        (diff vi silco)
+        (diff vi jinx)
+        (diff silco jinx)
+        (diff silco vi)
+
+        ; The traitor is Silco; Jinx and Vi are not traitors
+        (is-traitor silco)
+        (!is-traitor jinx)
+        (!is-traitor vi)
+
+        ; Each agent's beliefs
+        [silco](is-traitor silco)
+        [jinx](!is-traitor jinx)
+        [vi](!is-traitor vi)
+
+        ; Jinx and Vi both mistakenly believe Silco is loyal
+        [jinx](!is-traitor silco)
+        [vi](!is-traitor silco)
+
+        ; Jinx suspects Vi is the traitor
+        <jinx>(is-traitor vi)
+        ; Vi suspects Jinx is the traitor
+        <vi>(is-traitor jinx)
+
+        ; Silco believes that Vi suspects him
+        [silco]<vi>(is-traitor silco)
+        ; Jinx believes that Vi suspects her
+        [jinx]<vi>(is-traitor jinx)
+
+    )
+
+    ;;; Depth
+    ;; - Specifies the planning depth for the problem.
+    (:depth 4)
+
+    ;;; Goal
+    ;; - The objective is for both Jinx and Vi to believe Silco is the traitor.
+    (:goal
+
+        [jinx](is-traitor silco)
+        [vi](is-traitor silco)
+
+    )
+)

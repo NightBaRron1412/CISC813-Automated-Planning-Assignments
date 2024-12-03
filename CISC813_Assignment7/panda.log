@@ -1,0 +1,486 @@
+Random seed: 42
+Time limit: 1800 seconds
+Reading input from domain-problem.psas.
+- State has 149 bits divided into 149 mutex groups.
+- Domain contains 359 actions.
+- Domain contains 491 tasks.
+- Domain contains 451 methods.
+- The initial state contains 48 set bits.
+- The initial task is "__top[]".
+- State-based goal contains 7 bits.
+- Instance is totally-ordered: yes
+- Instance has unique paths: yes
+- Instance is parallel sequences: yes
+Calculate SCCs...
+- Number of SCCs: 491
+- The problem is cyclic
+- Number of cyclic SCCs: 30
+- Number of cyclic SCCs of size 1: 30
+Selected Planning Algorithm: progression searchParsing heuristics ...
+Number of specified heuristics: 1
+Generate 3
+
+RC Factory: CMA 1
+- the option "store cuts" of the RC heuristic can only be used with the inner heuristic LM-Cut. It will be disabled.
+- Calculating minimal implied distances and estimated costs (0 ms)
+Heuristic #0 = hhRC2(ff;distance;correct count)
+Search config:
+ - type: greedy
+ - weight: 1
+ - suboptimal: true
+Visited List configured
+- mode: total order
+- hashs to use: state task task-sequence
+- memory information: topological ordering
+- Visited list allows deletion of search nodes: true
+Search Configuration
+- Using JAIR 2020 progression algorithm
+- Search is stopped after first solution is found.
+- Greedy Search
+Search Results
+- Search time 0.162 seconds
+- Visited list time 0.011762 seconds
+- Visited list inserts 4254
+- Visited list pruned 1657
+- Visited list contains 2597
+- Visited list hash collisions 1658
+- Visited list used hash buckets 2596
+- Generated 30324 search nodes
+  Calculated heuristic for 24880 nodes
+  One modifications 2670
+  Effectless actions 2774
+- including 2670 one modification actions
+- including 0 one modification methods
+- and       2774 progressions of effectless actions
+- Generated 153580 nodes per second
+- Final fringe contains 117 nodes
+- Status: Solved
+- Found solution of length 424
+- Total costs of actions: 104
+==>
+4 __method_precondition_m_deliver-all[]
+20 __method_precondition_m_maintenance-needed[robot4]
+21 __method_precondition_m_maintenance-needed[robot4]
+26 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+27 maintenance-action[robot4]
+28 mark-maintenance-completed[robot4]
+32 __method_precondition_m_no-maintenance-needed[]
+37 __method_precondition_m_deliver-all[]
+4812 __method_precondition_m_deliver-one-package|instance_1[pkg1,robot4,storage-area,section-a]
+4816 assign-robot|instance_1[pkg1,robot4]
+4834 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+4835 move[robot4,maintenance-bay,storage-area]
+4847 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+4851 pickup-package|instance_1[robot4,pkg1,storage-area]
+4864 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+4865 move[robot4,storage-area,section-a]
+4912 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+4913 move[robot4,section-a,section-b]
+4922 __method_precondition_m_handle-blocked_split[robot4,section-b,obstacle-area]
+4923 __method_precondition_m_clear-blockage[section-b,obstacle-area]
+4924 remove-blockage[section-b,obstacle-area]
+4971 __method_precondition_m_move_split[robot4,section-b,section-a]
+4972 move[robot4,section-b,section-a]
+4982 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+4983 dropoff-package[robot4,pkg1,section-a]
+4984 mark-robot-available[robot4]
+4985 schedule-maintenance[robot4]
+5658 __method_precondition_m_deliver-all[]
+13685 __method_precondition_m_maintenance-needed[robot4]
+13686 __method_precondition_m_maintenance-needed[robot4]
+13704 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+13705 move[robot4,section-a,maintenance-bay]
+13806 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+13807 maintenance-action[robot4]
+13808 mark-maintenance-completed[robot4]
+13812 __method_precondition_m_no-maintenance-needed[]
+13817 __method_precondition_m_deliver-all[]
+16378 __method_precondition_m_deliver-one-package|instance_1[pkg3,robot4,storage-area,section-c]
+16382 assign-robot|instance_1[pkg3,robot4]
+16400 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+16401 move[robot4,maintenance-bay,storage-area]
+16557 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+16561 pickup-package|instance_1[robot4,pkg3,storage-area]
+16574 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+16575 move[robot4,storage-area,section-a]
+16616 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+16617 move[robot4,section-a,section-b]
+16647 __method_precondition_m_move_split[robot4,section-b,section-a]
+16648 move[robot4,section-b,section-c]
+16653 __method_precondition_m_move-done[robot4,section-c]
+16654 dropoff-package[robot4,pkg3,section-c]
+16655 mark-robot-available[robot4]
+16656 schedule-maintenance[robot4]
+16819 __method_precondition_m_deliver-all[]
+17508 __method_precondition_m_maintenance-needed[robot4]
+17509 __method_precondition_m_maintenance-needed[robot4]
+17533 __method_precondition_m_move-done[robot4,section-c]
+17534 move[robot4,section-c,section-b]
+17562 __method_precondition_m_move_split[robot4,section-b,section-a]
+17563 move[robot4,section-b,section-a]
+17589 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+17590 move[robot4,section-a,maintenance-bay]
+17712 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+17713 maintenance-action[robot4]
+17714 mark-maintenance-completed[robot4]
+17718 __method_precondition_m_no-maintenance-needed[]
+19194 __method_precondition_m_deliver-all[]
+19218 __method_precondition_m_deliver-urgent-package|instance_1[pkg2,robot4,storage-area,section-b]
+19222 assign-robot|instance_1[pkg2,robot4]
+19717 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+19718 move[robot4,maintenance-bay,storage-area]
+19794 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+19798 pickup-package|instance_1[robot4,pkg2,storage-area]
+19811 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+19812 move[robot4,storage-area,section-a]
+19853 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+19854 move[robot4,section-a,section-b]
+19861 __method_precondition_m_move_split[robot4,section-b,section-a]
+19862 dropoff-package[robot4,pkg2,section-b]
+19863 mark-robot-available[robot4]
+19864 schedule-maintenance[robot4]
+20107 __method_precondition_m_deliver-all[]
+21432 __method_precondition_m_maintenance-needed[robot4]
+21433 __method_precondition_m_maintenance-needed[robot4]
+21456 __method_precondition_m_move_split[robot4,section-b,section-a]
+21457 move[robot4,section-b,section-a]
+21566 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+21567 move[robot4,section-a,maintenance-bay]
+21582 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+21583 maintenance-action[robot4]
+21584 mark-maintenance-completed[robot4]
+21588 __method_precondition_m_no-maintenance-needed[]
+24780 __method_precondition_m_deliver-all[]
+25327 __method_precondition_m_deliver-urgent-package|instance_2[pkg6,robot4,storage-area,loading-dock]
+25331 assign-robot|instance_1[pkg6,robot4]
+25349 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+25350 move[robot4,maintenance-bay,storage-area]
+25362 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+25366 pickup-package|instance_1[robot4,pkg6,storage-area]
+25379 __method_precondition_m_move_split[robot4,storage-area,maintenance-bay]
+25380 move[robot4,storage-area,section-a]
+25421 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+25422 move[robot4,section-a,section-b]
+25452 __method_precondition_m_move_split[robot4,section-b,section-a]
+25453 move[robot4,section-b,section-c]
+25477 __method_precondition_m_move-done[robot4,section-c]
+25478 move[robot4,section-c,section-d]
+25499 __method_precondition_m_move_split[robot4,section-d,obstacle-area]
+25500 move[robot4,section-d,section-e]
+25522 __method_precondition_m_move_split[robot4,section-e,loading-dock]
+25523 move[robot4,section-e,loading-dock]
+25544 __method_precondition_m_move_split[robot4,loading-dock,section-e]
+25545 dropoff-package[robot4,pkg6,loading-dock]
+25546 mark-robot-available[robot4]
+25547 schedule-maintenance[robot4]
+25816 __method_precondition_m_deliver-all[]
+25852 __method_precondition_m_maintenance-needed[robot4]
+25853 __method_precondition_m_maintenance-needed[robot4]
+25861 __method_precondition_m_move_split[robot4,loading-dock,section-e]
+25862 move[robot4,loading-dock,section-e]
+25891 __method_precondition_m_move_split[robot4,section-e,loading-dock]
+25892 move[robot4,section-e,section-d]
+25924 __method_precondition_m_move_split[robot4,section-d,obstacle-area]
+25925 move[robot4,section-d,section-c]
+25961 __method_precondition_m_move-done[robot4,section-c]
+25962 move[robot4,section-c,section-b]
+25987 __method_precondition_m_move_split[robot4,section-b,section-a]
+25988 move[robot4,section-b,section-a]
+26011 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+26012 move[robot4,section-a,maintenance-bay]
+26027 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+26028 maintenance-action[robot4]
+26029 mark-maintenance-completed[robot4]
+26033 __method_precondition_m_no-maintenance-needed[]
+26038 __method_precondition_m_deliver-all[]
+26051 __method_precondition_m_deliver-one-package|instance_5[pkg7,robot4,section-c,loading-dock]
+26052 assign-robot|instance_5[pkg7,robot4]
+26525 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+26526 move[robot4,maintenance-bay,section-a]
+26565 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+26566 move[robot4,section-a,section-b]
+26596 __method_precondition_m_move_split[robot4,section-b,section-a]
+26597 move[robot4,section-b,section-c]
+26602 __method_precondition_m_move-done[robot4,section-c]
+26603 pickup-package|instance_5[robot4,pkg7,section-c]
+26623 __method_precondition_m_move-done[robot4,section-c]
+26624 move[robot4,section-c,section-d]
+26648 __method_precondition_m_move_split[robot4,section-d,obstacle-area]
+26649 move[robot4,section-d,section-e]
+26671 __method_precondition_m_move_split[robot4,section-e,loading-dock]
+26672 move[robot4,section-e,loading-dock]
+26693 __method_precondition_m_move_split[robot4,loading-dock,section-e]
+26694 dropoff-package[robot4,pkg7,loading-dock]
+26695 mark-robot-available[robot4]
+26696 schedule-maintenance[robot4]
+27532 __method_precondition_m_deliver-all[]
+27596 __method_precondition_m_maintenance-needed[robot4]
+27597 __method_precondition_m_maintenance-needed[robot4]
+27605 __method_precondition_m_move_split[robot4,loading-dock,section-e]
+27606 move[robot4,loading-dock,section-e]
+27635 __method_precondition_m_move_split[robot4,section-e,loading-dock]
+27636 move[robot4,section-e,section-d]
+27668 __method_precondition_m_move_split[robot4,section-d,obstacle-area]
+27669 move[robot4,section-d,section-c]
+27705 __method_precondition_m_move-done[robot4,section-c]
+27706 move[robot4,section-c,section-b]
+27731 __method_precondition_m_move_split[robot4,section-b,section-a]
+27732 move[robot4,section-b,section-a]
+27755 __method_precondition_m_move_split[robot4,section-a,maintenance-bay]
+27756 move[robot4,section-a,maintenance-bay]
+27771 __method_precondition_m_move_split[robot4,maintenance-bay,section-a]
+27772 maintenance-action[robot4]
+27773 mark-maintenance-completed[robot4]
+27777 __method_precondition_m_no-maintenance-needed[]
+27782 __method_precondition_m_deliver-all[]
+27816 __method_precondition_m_deliver-one-package|instance_3[pkg5,robot2,section-e,loading-dock]
+27817 assign-robot|instance_3[pkg5,robot2]
+27830 __method_precondition_m_move_split[robot2,loading-dock,section-e]
+27831 move[robot2,loading-dock,section-e]
+27847 __method_precondition_m_move_split[robot2,section-e,loading-dock]
+27848 pickup-package|instance_3[robot2,pkg5,section-e]
+27861 __method_precondition_m_move_split[robot2,section-e,loading-dock]
+27862 move[robot2,section-e,loading-dock]
+27879 __method_precondition_m_move_split[robot2,loading-dock,section-e]
+27880 dropoff-package[robot2,pkg5,loading-dock]
+27881 mark-robot-available[robot2]
+27882 schedule-maintenance[robot2]
+28811 __method_precondition_m_deliver-all[]
+29983 __method_precondition_m_maintenance-needed[robot2]
+29984 __method_precondition_m_maintenance-needed[robot2]
+29996 __method_precondition_m_move_split[robot2,loading-dock,section-e]
+29997 move[robot2,loading-dock,section-e]
+30034 __method_precondition_m_move_split[robot2,section-e,loading-dock]
+30035 move[robot2,section-e,section-d]
+30045 __method_precondition_m_move_split[robot2,section-d,section-c]
+30046 move[robot2,section-d,section-c]
+30092 __method_precondition_m_move-done[robot2,section-c]
+30093 move[robot2,section-c,section-b]
+30115 __method_precondition_m_move_split[robot2,section-b,section-c]
+30116 move[robot2,section-b,section-a]
+30134 __method_precondition_m_move_split[robot2,section-a,section-b]
+30135 move[robot2,section-a,maintenance-bay]
+30157 __method_precondition_m_move_split[robot2,maintenance-bay,section-a]
+30158 maintenance-action[robot2]
+30159 mark-maintenance-completed[robot2]
+30163 __method_precondition_m_no-maintenance-needed[]
+30168 __method_precondition_m_deliver-all[]
+30194 __method_precondition_m_deliver-one-package|instance_2[pkg4,robot1,section-d,loading-dock]
+30195 assign-robot|instance_2[pkg4,robot1]
+30211 __method_precondition_m_move_split[robot1,loading-dock,section-e]
+30212 move[robot1,loading-dock,section-e]
+30243 __method_precondition_m_move_split[robot1,section-e,loading-dock]
+30244 move[robot1,section-e,section-d]
+30254 __method_precondition_m_move_split[robot1,section-d,section-c]
+30255 pickup-package|instance_2[robot1,pkg4,section-d]
+30272 __method_precondition_m_move_split[robot1,section-d,section-c]
+30273 move[robot1,section-d,section-e]
+30301 __method_precondition_m_move_split[robot1,section-e,loading-dock]
+30302 move[robot1,section-e,loading-dock]
+30315 __method_precondition_m_move_split[robot1,loading-dock,section-e]
+30316 dropoff-package[robot1,pkg4,loading-dock]
+30317 mark-robot-available[robot1]
+30318 schedule-maintenance[robot1]
+30322 __method_precondition_m_all-delivered[]
+root 0
+30321 deliver-packages[] -> m_all-delivered 30322
+30314 move-to[robot1,loading-dock] -> m_move-done 30315
+30300 m_move_splitted_4[robot1] -> _splitting_method_m_move_splitted_4 30301 30302
+30288 move-to[robot1,loading-dock] -> m_move 30300 30314
+30271 m_move_splitted_4[robot1] -> _splitting_method_m_move_splitted_4 30272 30273
+30259 move-to[robot1,loading-dock] -> m_move 30271 30288
+30253 move-to[robot1,section-d] -> m_move-done 30254
+30242 m_move_splitted_4[robot1] -> _splitting_method_m_move_splitted_4 30243 30244
+30227 move-to[robot1,section-d] -> m_move 30242 30253
+30210 m_move_splitted_4[robot1] -> _splitting_method_m_move_splitted_4 30211 30212
+30202 move-to[robot1,section-d] -> m_move 30210 30227
+30193 deliver-one-package[] -> <<<m_deliver-one-package;assign-robot[pkg4,robot1];_method_for_multiple_expansions_of_assign-robot|instance_2;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg4,robot1,section-d,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_2;0;-1,1,2,3,4,5,6,7>;pickup-package[robot1,pkg4,section-d];_method_for_multiple_expansions_of_pickup-package|instance_2;3;0,1,2,-1,4,5,6,7> 30194 30195 30202 30255 30259 30316 30317 30318
+30167 m_choose-regular_splitted_1[] -> _splitting_method_m_choose-regular_splitted_1 30168
+30165 choose-package[] -> m_choose-regular 30167 30193
+30162 maintenance-check[] -> m_no-maintenance-needed 30163
+30156 move-to[robot2,maintenance-bay] -> m_move-done 30157
+30133 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 30134 30135
+30128 move-to[robot2,maintenance-bay] -> m_move 30133 30156
+30114 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 30115 30116
+30099 move-to[robot2,maintenance-bay] -> m_move 30114 30128
+30091 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 30092 30093
+30072 move-to[robot2,maintenance-bay] -> m_move 30091 30099
+30044 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 30045 30046
+30040 move-to[robot2,maintenance-bay] -> m_move 30044 30072
+30033 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 30034 30035
+30013 move-to[robot2,maintenance-bay] -> m_move 30033 30040
+29995 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 29996 29997
+29988 move-to[robot2,maintenance-bay] -> m_move 29995 30013
+29982 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot2];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot2];m_select-robot-for-maintenance;1;0,-1,2,3,4> 29983 29984 29988 30158 30159
+28817 maintenance-check[] -> m_maintenance-needed 29982 30162
+28810 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 28811
+27886 deliver-packages[] -> m_deliver-all 28810 28817 30165 30321
+27878 move-to[robot2,loading-dock] -> m_move-done 27879
+27860 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 27861 27862
+27852 move-to[robot2,loading-dock] -> m_move 27860 27878
+27846 move-to[robot2,section-e] -> m_move-done 27847
+27829 m_move_splitted_4[robot2] -> _splitting_method_m_move_splitted_4 27830 27831
+27822 move-to[robot2,section-e] -> m_move 27829 27846
+27815 deliver-one-package[] -> <<<m_deliver-one-package;assign-robot[pkg5,robot2];_method_for_multiple_expansions_of_assign-robot|instance_3;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg5,robot2,section-e,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_3;0;-1,1,2,3,4,5,6,7>;pickup-package[robot2,pkg5,section-e];_method_for_multiple_expansions_of_pickup-package|instance_3;3;0,1,2,-1,4,5,6,7> 27816 27817 27822 27848 27852 27880 27881 27882
+27781 m_choose-regular_splitted_1[] -> _splitting_method_m_choose-regular_splitted_1 27782
+27779 choose-package[] -> m_choose-regular 27781 27815
+27776 maintenance-check[] -> m_no-maintenance-needed 27777
+27770 move-to[robot4,maintenance-bay] -> m_move-done 27771
+27754 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27755 27756
+27742 move-to[robot4,maintenance-bay] -> m_move 27754 27770
+27730 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27731 27732
+27713 move-to[robot4,maintenance-bay] -> m_move 27730 27742
+27704 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27705 27706
+27686 move-to[robot4,maintenance-bay] -> m_move 27704 27713
+27667 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27668 27669
+27654 move-to[robot4,maintenance-bay] -> m_move 27667 27686
+27634 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27635 27636
+27627 move-to[robot4,maintenance-bay] -> m_move 27634 27654
+27604 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 27605 27606
+27602 move-to[robot4,maintenance-bay] -> m_move 27604 27627
+27595 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 27596 27597 27602 27772 27773
+27539 maintenance-check[] -> m_maintenance-needed 27595 27776
+27531 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 27532
+26700 deliver-packages[] -> m_deliver-all 27531 27539 27779 27886
+26692 move-to[robot4,loading-dock] -> m_move-done 26693
+26670 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26671 26672
+26666 move-to[robot4,loading-dock] -> m_move 26670 26692
+26647 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26648 26649
+26634 move-to[robot4,loading-dock] -> m_move 26647 26666
+26622 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26623 26624
+26607 move-to[robot4,loading-dock] -> m_move 26622 26634
+26601 move-to[robot4,section-c] -> m_move-done 26602
+26595 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26596 26597
+26573 move-to[robot4,section-c] -> m_move 26595 26601
+26564 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26565 26566
+26541 move-to[robot4,section-c] -> m_move 26564 26573
+26524 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26525 26526
+26078 move-to[robot4,section-c] -> m_move 26524 26541
+26050 deliver-one-package[] -> <<<m_deliver-one-package;assign-robot[pkg7,robot4];_method_for_multiple_expansions_of_assign-robot|instance_5;1;0,-1,2,3,4,5,6,7>;__method_precondition_m_deliver-one-package[pkg7,robot4,section-c,loading-dock];_method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_5;0;-1,1,2,3,4,5,6,7>;pickup-package[robot4,pkg7,section-c];_method_for_multiple_expansions_of_pickup-package|instance_5;3;0,1,2,-1,4,5,6,7> 26051 26052 26078 26603 26607 26694 26695 26696
+26037 m_choose-regular_splitted_1[] -> _splitting_method_m_choose-regular_splitted_1 26038
+26035 choose-package[] -> m_choose-regular 26037 26050
+26032 maintenance-check[] -> m_no-maintenance-needed 26033
+26026 move-to[robot4,maintenance-bay] -> m_move-done 26027
+26010 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 26011 26012
+25998 move-to[robot4,maintenance-bay] -> m_move 26010 26026
+25986 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25987 25988
+25969 move-to[robot4,maintenance-bay] -> m_move 25986 25998
+25960 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25961 25962
+25939 move-to[robot4,maintenance-bay] -> m_move 25960 25969
+25923 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25924 25925
+25910 move-to[robot4,maintenance-bay] -> m_move 25923 25939
+25890 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25891 25892
+25883 move-to[robot4,maintenance-bay] -> m_move 25890 25910
+25860 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25861 25862
+25858 move-to[robot4,maintenance-bay] -> m_move 25860 25883
+25851 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 25852 25853 25858 26028 26029
+25825 maintenance-check[] -> m_maintenance-needed 25851 26032
+25815 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 25816
+25551 deliver-packages[] -> m_deliver-all 25815 25825 26035 26700
+25543 move-to[robot4,loading-dock] -> m_move-done 25544
+25521 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25522 25523
+25517 move-to[robot4,loading-dock] -> m_move 25521 25543
+25498 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25499 25500
+25488 move-to[robot4,loading-dock] -> m_move 25498 25517
+25476 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25477 25478
+25458 move-to[robot4,loading-dock] -> m_move 25476 25488
+25451 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25452 25453
+25429 move-to[robot4,loading-dock] -> m_move 25451 25458
+25420 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25421 25422
+25397 move-to[robot4,loading-dock] -> m_move 25420 25429
+25378 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25379 25380
+25370 move-to[robot4,loading-dock] -> m_move 25378 25397
+25365 pickup-package[robot4,pkg6,storage-area] -> _method_for_multiple_expansions_of_pickup-package|instance_1 25366
+25361 move-to[robot4,storage-area] -> m_move-done 25362
+25348 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 25349 25350
+25335 move-to[robot4,storage-area] -> m_move 25348 25361
+25330 assign-robot[pkg6,robot4] -> _method_for_multiple_expansions_of_assign-robot|instance_1 25331
+25326 __method_precondition_m_deliver-urgent-package[pkg6,robot4,storage-area,loading-dock] -> _method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_2 25327
+24792 deliver-urgent-package[] -> m_deliver-urgent-package 25326 25330 25335 25365 25370 25545 25546 25547
+24779 __method_precondition_m_choose-urgent[] -> _method_for_multiple_expansions_of___method_precondition_m_choose-urgent|instance_2 24780
+21591 choose-package[] -> m_choose-urgent 24779 24792
+21587 maintenance-check[] -> m_no-maintenance-needed 21588
+21581 move-to[robot4,maintenance-bay] -> m_move-done 21582
+21565 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 21566 21567
+21470 move-to[robot4,maintenance-bay] -> m_move 21565 21581
+21455 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 21456 21457
+21438 move-to[robot4,maintenance-bay] -> m_move 21455 21470
+21431 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 21432 21433 21438 21583 21584
+20117 maintenance-check[] -> m_maintenance-needed 21431 21587
+20106 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 20107
+19868 deliver-packages[] -> m_deliver-all 20106 20117 21591 25551
+19860 move-to[robot4,section-b] -> m_move-done 19861
+19852 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 19853 19854
+19829 move-to[robot4,section-b] -> m_move 19852 19860
+19810 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 19811 19812
+19802 move-to[robot4,section-b] -> m_move 19810 19829
+19797 pickup-package[robot4,pkg2,storage-area] -> _method_for_multiple_expansions_of_pickup-package|instance_1 19798
+19793 move-to[robot4,storage-area] -> m_move-done 19794
+19716 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 19717 19718
+19687 move-to[robot4,storage-area] -> m_move 19716 19793
+19221 assign-robot[pkg2,robot4] -> _method_for_multiple_expansions_of_assign-robot|instance_1 19222
+19217 __method_precondition_m_deliver-urgent-package[pkg2,robot4,storage-area,section-b] -> _method_for_multiple_expansions_of___method_precondition_m_deliver-urgent-package|instance_1 19218
+19211 deliver-urgent-package[] -> m_deliver-urgent-package 19217 19221 19687 19797 19802 19862 19863 19864
+19193 __method_precondition_m_choose-urgent[] -> _method_for_multiple_expansions_of___method_precondition_m_choose-urgent|instance_1 19194
+17721 choose-package[] -> m_choose-urgent 19193 19211
+17717 maintenance-check[] -> m_no-maintenance-needed 17718
+17711 move-to[robot4,maintenance-bay] -> m_move-done 17712
+17588 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 17589 17590
+17573 move-to[robot4,maintenance-bay] -> m_move 17588 17711
+17561 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 17562 17563
+17541 move-to[robot4,maintenance-bay] -> m_move 17561 17573
+17532 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 17533 17534
+17514 move-to[robot4,maintenance-bay] -> m_move 17532 17541
+17507 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 17508 17509 17514 17713 17714
+16830 maintenance-check[] -> m_maintenance-needed 17507 17717
+16818 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 16819
+16660 deliver-packages[] -> m_deliver-all 16818 16830 17721 19868
+16652 move-to[robot4,section-c] -> m_move-done 16653
+16646 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 16647 16648
+16624 move-to[robot4,section-c] -> m_move 16646 16652
+16615 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 16616 16617
+16592 move-to[robot4,section-c] -> m_move 16615 16624
+16573 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 16574 16575
+16565 move-to[robot4,section-c] -> m_move 16573 16592
+16560 pickup-package[robot4,pkg3,storage-area] -> _method_for_multiple_expansions_of_pickup-package|instance_1 16561
+16556 move-to[robot4,storage-area] -> m_move-done 16557
+16399 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 16400 16401
+16386 move-to[robot4,storage-area] -> m_move 16399 16556
+16381 assign-robot[pkg3,robot4] -> _method_for_multiple_expansions_of_assign-robot|instance_1 16382
+16377 __method_precondition_m_deliver-one-package[pkg3,robot4,storage-area,section-c] -> _method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1 16378
+13846 deliver-one-package[] -> m_deliver-one-package 16377 16381 16386 16560 16565 16654 16655 16656
+13816 m_choose-regular_splitted_1[] -> _splitting_method_m_choose-regular_splitted_1 13817
+13814 choose-package[] -> m_choose-regular 13816 13846
+13811 maintenance-check[] -> m_no-maintenance-needed 13812
+13805 move-to[robot4,maintenance-bay] -> m_move-done 13806
+13703 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 13704 13705
+13691 move-to[robot4,maintenance-bay] -> m_move 13703 13805
+13684 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 13685 13686 13691 13807 13808
+5670 maintenance-check[] -> m_maintenance-needed 13684 13811
+5657 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 5658
+4989 deliver-packages[] -> m_deliver-all 5657 5670 13814 16660
+4981 move-to[robot4,section-a] -> m_move-done 4982
+4970 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 4971 4972
+4926 move-to[robot4,section-a] -> m_move 4970 4981
+4921 move-to[robot4,section-a] -> <m_handle-blocked;m_handle-blocked_splitted_5[robot4];<_splitting_method_m_handle-blocked_splitted_5;clear-blockage[section-b,obstacle-area];m_clear-blockage;1;0,-1,-2>;0;-1,-2,-3,1> 4922 4923 4924 4926
+4911 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 4912 4913
+4886 move-to[robot4,section-a] -> m_move 4911 4921
+4863 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 4864 4865
+4855 move-to[robot4,section-a] -> m_move 4863 4886
+4850 pickup-package[robot4,pkg1,storage-area] -> _method_for_multiple_expansions_of_pickup-package|instance_1 4851
+4846 move-to[robot4,storage-area] -> m_move-done 4847
+4833 m_move_splitted_4[robot4] -> _splitting_method_m_move_splitted_4 4834 4835
+4820 move-to[robot4,storage-area] -> m_move 4833 4846
+4815 assign-robot[pkg1,robot4] -> _method_for_multiple_expansions_of_assign-robot|instance_1 4816
+4811 __method_precondition_m_deliver-one-package[pkg1,robot4,storage-area,section-a] -> _method_for_multiple_expansions_of___method_precondition_m_deliver-one-package|instance_1 4812
+71 deliver-one-package[] -> m_deliver-one-package 4811 4815 4820 4850 4855 4983 4984 4985
+36 m_choose-regular_splitted_1[] -> _splitting_method_m_choose-regular_splitted_1 37
+34 choose-package[] -> m_choose-regular 36 71
+31 maintenance-check[] -> m_no-maintenance-needed 32
+25 move-to[robot4,maintenance-bay] -> m_move-done 26
+19 m_maintenance-needed_splitted_3[] -> <<_splitting_method_m_maintenance-needed_splitted_3;perform-maintenance-on-robot[robot4];m_perform-maintenance-on-robot;2;0,1,-1,-2,-3>;select-robot-for-maintenance[robot4];m_select-robot-for-maintenance;1;0,-1,2,3,4> 20 21 25 27 28
+18 maintenance-check[] -> m_maintenance-needed 19 31
+3 m_deliver-all_splitted_2[] -> _splitting_method_m_deliver-all_splitted_2 4
+2 deliver-packages[] -> m_deliver-all 3 18 34 4989
+0 __top[] -> __top_method 2
+<==
